@@ -1,18 +1,37 @@
+<style lang="less">
+// @import url("../styles/components/button.less");
+@import url("../styles/index.less");
+</style>
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+    <button class="tdp-button large">大按钮</button>
+    <button class="tdp-button mini">小按钮</button>
+    <div id="helloWorldId" msg="你好啊"></div>
+    <!-- <hello-world msg="你好"></hello-world> -->
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
 import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
 
-@Component({
-  components: {
-    HelloWorld,
+export default {
+  name: "Home",
+  // components: {
+  //   HelloWorld,
+  // },
+  mounted(): void {
+    const hw = new HelloWorld({
+      el: "#helloWorldId",
+      propsData: {
+        msg: "哈哈哈",
+      },
+    });
+    // hw.$mount();
+    // document.getElementById("helloWorldId")?.appendChild(hw.$el);
+    setTimeout(() => {
+      console.log(hw);
+    }, 2000);
   },
-})
-export default class Home extends Vue {}
+};
 </script>

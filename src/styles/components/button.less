@@ -1,0 +1,20 @@
+@import url("../var/index.less");
+
+@prefixName: ~"@{prefix-className}";
+.@{prefixName}-button {
+    color: #fff;
+    background-color: @primary-color;
+    border: 0;
+    padding: 0 20px;
+    margin: 0 10px;
+    transition: all .3s cubic-bezier(.645,.045,.355,1);
+    border-radius: 2px;
+}
+.@{prefixName}-button.large {
+    height: @button-large-height;
+    line-height: @button-large-height;
+}
+.@{prefixName}-button.mini {
+    height: @button-mini-height;
+    line-height: @button-mini-height;
+}

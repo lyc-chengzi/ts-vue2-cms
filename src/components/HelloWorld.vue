@@ -1,6 +1,8 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <h2 @click="showTitle">{{ title }}</h2>
+    <h3>{{ subTitle }}</h3>
     <p>
       For a guide and recipes on how to configure / customize this project,<br />
       check out the
@@ -121,9 +123,16 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 
-@Component
+@Component({
+  name: "HelloWorld",
+})
 export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
+  private title = "title";
+  private subTitle = "subTitle";
+  showTitle = (): void => {
+    alert(this.title);
+  };
 }
 </script>
 
