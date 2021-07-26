@@ -7,7 +7,7 @@ Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
-    path: "/",
+    path: "/home",
     name: "Home",
     component: Home,
   },
@@ -23,6 +23,7 @@ const routes: Array<RouteConfig> = [
 ];
 
 const finalRoutes = routes.concat(threejsRoutes);
+console.log("BASE_URL", process.env.BASE_URL);
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,

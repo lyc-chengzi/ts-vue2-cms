@@ -25,7 +25,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import * as three from "three";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
-import { Camera, Group, Scene, WebGLRenderer } from "three";
+import { Camera, Group, Scene, Texture, WebGLRenderer } from "three";
 
 @Component({
   name: "threejs-demo3",
@@ -42,7 +42,9 @@ export default class ThreejsDemo3 extends Vue {
   containerHalfX = 0;
   containerHalfY = 0;
   object?: Group;
+  texture?: Texture;
   mounted(): void {
+    console.log("app title", process.env.VUE_APP_TITLE);
     this.title =
       (this.$route && this.$route.meta && (this.$route.meta.title as string)) ||
       "";
@@ -66,8 +68,10 @@ export default class ThreejsDemo3 extends Vue {
     const width = this.container?.offsetWidth || 160;
     const height = this.container?.offsetHeight || 90;
     console.log(width, height);
+    // 定义相机
     this.camera = new three.PerspectiveCamera(45, width / height, 1, 2000);
-    this.camera.position.z = 250;
+    this.camera.position.z = 200;
+    // 定义场景
     this.scene = new three.Scene();
     // 环境光
     const ambientLight = new three.AmbientLight(0xcccccc, 0.4);
@@ -76,14 +80,25 @@ export default class ThreejsDemo3 extends Vue {
     const pointLight = new three.PointLight(0xffffff, 0.8);
     this.scene.add(pointLight);
     this.scene.add(this.camera);
+    const loadModel = () => {
+      if (this.object && this.scene && this.texture) {
+        console.log(this.texture);
+        this.object.traverse((child) => {
+          console.log("child", child);
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          if (child.isMesh) child.material.map = this.texture;
+          // if(child.isMesh) child.material.color = 0xe8e8e8;
+        });
 
-    const manager = new three.LoadingManager(() => {
-      if (this.object && this.scene) {
-        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         this.object.position.y = -95;
-        this.scene.add(this.object);
+        this.scene?.add(this.object);
       }
-    });
+    };
+
+    const manager = new three.LoadingManager(loadModel);
+    const jayLoader = new three.TextureLoader(manager);
+    this.texture = jayLoader.load("/threejsAssets/image/b.jpg");
     const loader = new OBJLoader(manager);
     loader.load(
       "/threejsAssets/obj/male02.obj",
@@ -93,6 +108,7 @@ export default class ThreejsDemo3 extends Vue {
       this.onProgress.bind(this)
     );
     this.renderer = new three.WebGLRenderer();
+    this.renderer.setClearColor(0xaabbcc);
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(width, height);
     this.container.appendChild(this.renderer.domElement);
@@ -104,7 +120,7 @@ export default class ThreejsDemo3 extends Vue {
   };
   render = (): void => {
     if (this.camera && this.scene && this.renderer) {
-      console.log("render...");
+      // console.log("render...");
       this.camera.position.x +=
         (this.mouseX - this.camera?.position.x) * 0.05 * 4;
       this.camera.position.y += (-this.mouseY - this.camera.position.y) * 0.05;

@@ -43,20 +43,41 @@ export default class ThreejsDemo1 extends Vue {
   createScene(): void {
     const width =
       document.getElementById("threejs_demo1_body")?.clientWidth || 0;
+    const height =
+      document.getElementById("threejs_demo1_body")?.clientHeight || 500;
     const scene = new three.Scene();
-    const camera = new three.PerspectiveCamera(75, width / 500, 0.2, 1000);
+    const camera = new three.PerspectiveCamera(45, width / height, 1, 1000);
+    camera.position.z = 800;
 
-    const geometry = new three.BoxGeometry();
-    const material = new three.MeshBasicMaterial({ color: 0x00ff00 });
-    const cube = new three.Mesh(geometry, material);
+    const boxGeometry = new three.BoxGeometry(100, 100, 100);
+    const boxMaterial = new three.MeshLambertMaterial({ color: 0x00ff00 });
+    const cube = new three.Mesh(boxGeometry, boxMaterial);
+    cube.position.set(-100, 100, 200);
     scene.add(cube);
-    camera.position.z = 2;
+
+    const sphereGeometry = new three.SphereGeometry(100, 50, 50);
+    const sphereMaterial = new three.MeshPhongMaterial({
+      color: 0xaabbcc,
+    });
+    const sphere = new three.Mesh(sphereGeometry, sphereMaterial);
+    sphere.position.set(100, 100, 300);
+    scene.add(sphere);
+    camera.lookAt(sphere.position);
+
+    const pointLight = new three.PointLight(0xffffff);
+    pointLight.position.set(20, 20, 400);
+    scene.add(pointLight);
+
+    const ambientLight = new three.AmbientLight(0x404040);
+    scene.add(ambientLight);
 
     const renderer = new three.WebGLRenderer();
-    renderer.setSize(width, 500);
+    renderer.setClearColor(0xe8e8e8, 1);
+    renderer.setSize(width, height);
     console.log(renderer);
     const renderBody = window.document.getElementById("threejs_demo1_body");
     if (renderBody) renderBody.appendChild(renderer.domElement);
+    console.log("scene", scene);
 
     function animate(): void {
       requestAnimationFrame(animate);
