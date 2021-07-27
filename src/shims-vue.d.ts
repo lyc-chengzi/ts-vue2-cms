@@ -16,5 +16,6 @@ declare module "three/examples/jsm/libs/dat.gui.module" {
     ) => GUI;
     destroy: () => void;
     listen: () => void;
+    name: (name: string) => void;
   }
 }

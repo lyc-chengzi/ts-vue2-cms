@@ -48,9 +48,9 @@ export default class ThreejsDemo5 extends demoBase {
       cube.name = `cube-${this.scene.children.length}`;
 
       cube.position.set(
-        Math.round(Math.random() * 40) - 30,
+        Math.round(Math.random() * 60) - 30,
         Math.round(Math.random() * 5),
-        Math.round(Math.random() * 60) - 20
+        Math.round(Math.random() * 40) - 20
       );
       this.scene.add(cube);
       this.controlParams.numberOfObjects = this.scene.children.length;
@@ -91,8 +91,8 @@ export default class ThreejsDemo5 extends demoBase {
   }
   addGUI(): void {
     // gui
-    this.gui.add(this.controlParams, "rotationSpeed", 0, 0.5);
-    this.gui.add(this.controlParams, "addCube");
+    this.gui.add(this.controlParams, "rotationSpeed", 0, 0.5).name("旋转速度");
+    this.gui.add(this.controlParams, "addCube").name("添加物体");
     this.gui.add(this.controlParams, "removeCube");
     this.gui.add(this.controlParams, "outputMesh");
     this.gui.add(this.controlParams, "numberOfObjects").listen();
