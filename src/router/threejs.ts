@@ -11,8 +11,9 @@ const routes: Array<RouteConfig> = [
     children: [
       {
         name: "threejs_demo1",
-        path: "demo1",
+        path: "/threejs/index",
         meta: {
+          label: "基础几何体",
           title: "旋转的正方体",
         },
         component: () =>
@@ -22,9 +23,10 @@ const routes: Array<RouteConfig> = [
       },
       {
         name: "threejs_demo2",
-        path: "demo2",
+        path: "/threejs/demo2",
         meta: {
-          title: "画线",
+          label: "GUI",
+          title: "GUI辅助演示",
         },
         component: () =>
           import(
@@ -33,8 +35,9 @@ const routes: Array<RouteConfig> = [
       },
       {
         name: "threejs_demo3",
-        path: "demo3",
+        path: "/threejs/demo3",
         meta: {
+          label: "obj模型渲染",
           title: "导入外部模型",
         },
         component: () =>
@@ -44,13 +47,26 @@ const routes: Array<RouteConfig> = [
       },
       {
         name: "threejs_demo4",
-        path: "demo4",
+        path: "/threejs/demo4",
         meta: {
+          label: "gltf模型渲染",
           title: "AMG",
         },
         component: () =>
           import(
             /* webpackChunkName: "threejs" */ "../views/threejsDemo/demo4.vue"
+          ),
+      },
+      {
+        name: "threejs_demo5",
+        path: "/threejs/demo5",
+        meta: {
+          label: "动态添加物体",
+          title: "动态添加",
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "threejs" */ "../views/threejsDemo/demo5.vue"
           ),
       },
     ],

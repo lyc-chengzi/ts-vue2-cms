@@ -76,6 +76,9 @@ export default class ThreejsDemo3 extends Vue {
     // 环境光
     const ambientLight = new three.AmbientLight(0xcccccc, 0.4);
     this.scene.add(ambientLight);
+
+    const axes = new three.AxesHelper(20);
+    this.scene.add(axes);
     // 点光源
     const pointLight = new three.PointLight(0xffffff, 0.8);
     this.scene.add(pointLight);

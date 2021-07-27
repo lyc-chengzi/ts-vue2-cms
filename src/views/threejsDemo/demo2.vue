@@ -34,37 +34,101 @@ export default class ThreejsDemo2 extends Vue {
       (this.$route && this.$route.meta && (this.$route.meta.title as string)) ||
       "";
     window.document.title = this.title;
-    this.createScene();
+    this.init();
   }
-  createScene(): void {
+  init(): void {
     const width =
       document.getElementById("threejs_demo2_body")?.clientWidth || 0;
+    const height =
+      document.getElementById("threejs_demo2_body")?.clientHeight || 0;
     const scene = new three.Scene();
-    const camera = new three.PerspectiveCamera(45, width / 500, 1, 500);
-    camera.position.set(0, 0, 100);
-    camera.lookAt(0, 0, 0);
 
-    const material = new three.LineBasicMaterial({ color: 0x0000ff });
+    // create a camera, which defines where we're looking at.
+    const camera = new three.PerspectiveCamera(45, width / height, 0.1, 1000);
 
-    const points = [
-      new three.Vector3(-10, 0, 0),
-      new three.Vector3(-0, 10, 0),
-      new three.Vector3(10, 0, 0),
-    ];
-    const geometry = new three.BufferGeometry().setFromPoints(points);
-    const line = new three.Line(geometry, material);
-    scene.add(line);
+    // create a render and configure it with shadows
     const renderer = new three.WebGLRenderer();
-    renderer.setSize(width, 500);
-    console.log(renderer);
-    const renderBody = window.document.getElementById("threejs_demo2_body");
-    if (renderBody) renderBody.appendChild(renderer.domElement);
+    renderer.setClearColor(new three.Color(0x000000));
+    renderer.setSize(width, height);
+    renderer.shadowMap.enabled = true;
 
-    function animate(): void {
-      requestAnimationFrame(animate);
-      renderer.render(scene, camera);
-    }
-    animate();
+    const axes = new three.AxesHelper(30);
+    scene.add(axes);
+
+    // createTree(scene);
+    // createHouse(scene);
+    // createGroundPlane(scene);
+    // createBoundingWall(scene);
+
+    // create a cube
+    var cubeGeometry = new three.BoxGeometry(4, 4, 4);
+    var cubeMaterial = new three.MeshLambertMaterial({
+      color: 0xff0000,
+    });
+    var cube = new three.Mesh(cubeGeometry, cubeMaterial);
+    cube.castShadow = true;
+
+    // position the cube
+    cube.position.x = -4;
+    cube.position.y = 2;
+    cube.position.z = 0;
+
+    // add the cube to the scene
+
+    var sphereGeometry = new three.SphereGeometry(4, 20, 20);
+    var sphereMaterial = new three.MeshLambertMaterial({
+      color: 0x7777ff,
+    });
+    var sphere = new three.Mesh(sphereGeometry, sphereMaterial);
+
+    // position the sphere
+    sphere.position.x = 20;
+    sphere.position.y = 4;
+    sphere.position.z = 2;
+    sphere.castShadow = true;
+
+    // create the ground plane
+    var planeGeometry = new three.PlaneGeometry(60, 20);
+    var planeMaterial = new three.MeshLambertMaterial({
+      color: 0xaaaaaa,
+    });
+    var plane = new three.Mesh(planeGeometry, planeMaterial);
+
+    // rotate and position the plane
+    plane.rotation.x = -0.5 * Math.PI;
+    plane.position.set(15, 0, 0);
+    plane.receiveShadow = true;
+
+    // add the objects
+    scene.add(cube);
+    scene.add(sphere);
+    scene.add(plane);
+
+    // position and point the camera to the center of the scene
+    camera.position.x = -30;
+    camera.position.y = 40;
+    camera.position.z = 30;
+    camera.lookAt(scene.position);
+
+    // add spotlight for the shadows
+    var spotLight = new three.SpotLight(0xffffff);
+    spotLight.position.set(-40, 40, -15);
+    spotLight.castShadow = true;
+    spotLight.shadow.mapSize = new three.Vector2(1024, 1024);
+    spotLight.shadow.camera.far = 130;
+    spotLight.shadow.camera.near = 40;
+
+    // If you want a more detailled shadow you can increase the
+    // mapSize used to draw the shadows.
+    // spotLight.shadow.mapSize = new THREE.Vector2(1024, 1024);
+    scene.add(spotLight);
+
+    var ambienLight = new three.AmbientLight(0x353535);
+    scene.add(ambienLight);
+    document
+      .getElementById("threejs_demo2_body")
+      ?.appendChild(renderer.domElement);
+    renderer.render(scene, camera);
   }
 }
 </script>

@@ -4,3 +4,17 @@ declare module "*.vue" {
 }
 declare module "*.png";
 declare module "*.jpg";
+
+declare module "three/examples/jsm/libs/dat.gui.module" {
+  export class GUI {
+    constructor();
+    add: (
+      control: unknown,
+      filedName: string,
+      min?: number | string | boolean,
+      max?: number | string | boolean
+    ) => GUI;
+    destroy: () => void;
+    listen: () => void;
+  }
+}

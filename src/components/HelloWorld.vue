@@ -1,8 +1,9 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h1 @click="clickMsg">{{ msg }}</h1>
     <h2 @click="showTitle">{{ title }}</h2>
     <h3>{{ subTitle }}</h3>
+    <p>时间：{{ nowTime }}</p>
     <p>
       For a guide and recipes on how to configure / customize this project,<br />
       check out the
@@ -127,12 +128,24 @@ import { Component, Prop, Vue } from "vue-property-decorator";
   name: "HelloWorld",
 })
 export default class HelloWorld extends Vue {
-  @Prop() private msg!: string;
+  @Prop() public msg!: string;
+  @Prop() public onClickMsg!: () => void;
   private title = "title";
   private subTitle = "subTitle";
+  private nowTime = new Date().toLocaleString();
+  mounted(): void {
+    setInterval(() => {
+      this.nowTime = new Date().toLocaleString();
+    }, 1000);
+  }
   showTitle = (): void => {
     alert(this.title);
   };
+  clickMsg(): void {
+    if (this.onClickMsg) {
+      this.onClickMsg();
+    }
+  }
 }
 </script>
 

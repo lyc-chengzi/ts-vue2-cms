@@ -24,13 +24,16 @@ export default {
     const hw = new HelloWorld({
       el: "#helloWorldId",
       propsData: {
-        msg: "哈哈哈",
+        msg: "初始化msg",
+        onClickMsg: function (): void {
+          console.log(this.$data);
+        },
       },
     });
-    // hw.$mount();
-    // document.getElementById("helloWorldId")?.appendChild(hw.$el);
     setTimeout(() => {
       console.log(hw);
+      hw.msg = "动态修改的msg";
+      console.log(hw.$props);
     }, 2000);
   },
 };

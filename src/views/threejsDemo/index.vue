@@ -1,10 +1,13 @@
 <template>
   <div id="threejs">
     <div class="nav">
-      <router-link to="/threejs/demo1" class="menu-item">demo1</router-link>
-      <router-link to="/threejs/demo2" class="menu-item">demo2</router-link>
-      <router-link to="/threejs/demo3" class="menu-item">人</router-link>
-      <router-link to="/threejs/demo4" class="menu-item">AMG</router-link>
+      <router-link
+        v-for="route in routes"
+        :key="route.name"
+        :to="route.path"
+        class="menu-item"
+        >{{ route.meta.label }}</router-link
+      >
     </div>
     <div class="body">
       <router-view />
@@ -43,11 +46,20 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { RouteConfig } from "vue-router";
+import threejsRoutes from "../../router/threejs";
 
 @Component({
   name: "threejs-index",
 })
 export default class ThreejsIndex extends Vue {
   @Prop() private msg!: string;
+  private routes: RouteConfig[] = [];
+  mounted(): void {
+    threejsRoutes[0].children?.map((route) => {
+      this.routes.push(route);
+    });
+    console.log(this.routes);
+  }
 }
 </script>
