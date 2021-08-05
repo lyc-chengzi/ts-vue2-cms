@@ -1,11 +1,11 @@
 import { Vue } from "vue-property-decorator";
-import { GUI } from "three/examples/jsm/libs/dat.gui.module";
+import * as dat from "three/examples/jsm/libs/dat.gui.module";
 import * as three from "three";
 import Stats from "three/examples/jsm/libs/stats.module";
 
 export default class DemoBase extends Vue {
   protected containerId = "threejs_demobase_body";
-  protected gui = new GUI();
+  protected gui = new dat.GUI();
   protected container: HTMLDivElement | null = null;
   protected containerWidth = 0;
   protected containerHeight = 0;
@@ -29,12 +29,12 @@ export default class DemoBase extends Vue {
     const axes = new three.AxesHelper(30);
     this.scene.add(axes);
   }
-  setRenderer(): void {
+  initRenderer(): void {
     this.renderer.setClearColor(0x000000);
     this.renderer.setSize(this.containerWidth, this.containerHeight);
     this.renderer.shadowMap.enabled = true;
     if (this.container) this.container.appendChild(this.renderer.domElement);
-    this.renderer.render(this.scene, this.camera);
+    // this.renderer.render(this.scene, this.camera);
   }
   createPlane(): void {
     const planeGeometry = new three.PlaneGeometry(60, 40, 1, 1);
@@ -45,7 +45,7 @@ export default class DemoBase extends Vue {
     plane.position.set(0, 0, 0);
     this.scene.add(plane);
   }
-  setCamera(): void {
+  initCamera(): void {
     this.camera = new three.PerspectiveCamera(
       45,
       this.containerWidth / this.containerHeight,
@@ -55,7 +55,7 @@ export default class DemoBase extends Vue {
     this.camera.position.set(-30, 40, 30);
     this.camera.lookAt(this.scene.position);
   }
-  setLight(): void {
+  initLight(): void {
     const ambientLight = new three.AmbientLight(0x3c3c3c);
     this.scene.add(ambientLight);
     const spotlight = new three.SpotLight(0xffffff, 1.2, 150, 120);

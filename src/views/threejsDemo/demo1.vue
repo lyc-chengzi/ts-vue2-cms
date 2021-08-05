@@ -56,10 +56,10 @@ export default class ThreejsDemo1 extends demoBase {
   }
   createScene(): void {
     this.initHelper();
-    this.setCamera();
+    this.initCamera();
     this.createPlane();
-    this.setLight();
-    this.setRenderer();
+    this.initLight();
+    this.initRenderer();
 
     const boxGeometry = new three.BoxGeometry(5, 5, 5);
     const boxMaterial = new three.MeshLambertMaterial({

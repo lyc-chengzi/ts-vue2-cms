@@ -59,7 +59,6 @@ export default class ThreejsIndex extends Vue {
     threejsRoutes[0].children?.map((route) => {
       this.routes.push(route);
     });
-    console.log(this.routes);
   }
 }
 </script>

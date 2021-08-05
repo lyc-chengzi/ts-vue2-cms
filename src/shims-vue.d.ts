@@ -11,7 +11,7 @@ declare module "three/examples/jsm/libs/dat.gui.module" {
     add: (
       control: unknown,
       filedName: string,
-      min?: number | string | boolean,
+      min?: number | string | boolean | string[],
       max?: number | string | boolean
     ) => GUI;
     destroy: () => void;

@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
 import threejsRoutes from "../router/threejs";
+import cmsRoutes from "../router/cms";
 
 Vue.use(VueRouter);
 
@@ -22,7 +23,7 @@ const routes: Array<RouteConfig> = [
   },
 ];
 
-const finalRoutes = routes.concat(threejsRoutes);
+const finalRoutes = routes.concat(threejsRoutes).concat(cmsRoutes);
 console.log("BASE_URL", process.env.BASE_URL);
 const router = new VueRouter({
   mode: "history",

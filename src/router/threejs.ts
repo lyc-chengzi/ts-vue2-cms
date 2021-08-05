@@ -69,6 +69,18 @@ const routes: Array<RouteConfig> = [
             /* webpackChunkName: "threejs" */ "../views/threejsDemo/demo5.vue"
           ),
       },
+      {
+        name: "threejs_demo6",
+        path: "/threejs/demo6",
+        meta: {
+          label: "场景雾化",
+          title: "场景的雾化和材质覆盖",
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "threejs" */ "../views/threejsDemo/demo6.vue"
+          ),
+      },
     ],
   },
 ];

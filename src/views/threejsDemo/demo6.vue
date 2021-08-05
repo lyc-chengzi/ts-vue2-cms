@@ -1,12 +1,12 @@
 <style lang="less">
-#threejs_demo5 {
+#threejs_demo6 {
   position: relative;
   .title {
     font-size: 20px;
     font-weight: 600;
     margin: 10px;
   }
-  #threejs_demo5_body {
+  #threejs_demo6_body {
     position: relative;
     height: 500px;
   }
@@ -20,20 +20,14 @@ import { VNode } from "vue";
 import { Component } from "vue-property-decorator";
 
 @Component({
-  name: "threejs-demo5",
+  name: "threejs-demo6",
 })
-export default class ThreejsDemo5 extends demoBase {
-  containerId = "threejs_demo5_body";
+export default class ThreejsDemo6 extends demoBase {
+  containerId = "threejs_demo6_body";
   private title = "";
   private controlParams = {
     rotationSpeed: 0.02,
     numberOfObjects: this.scene.children.length,
-    enableFog: () => {
-      this.scene.fog = new three.Fog(0xffffff, 0.1, 100);
-    },
-    disableFog: () => {
-      this.scene.fog = null;
-    },
     removeCube: () => {
       console.log("removeCube", this);
       const children = this.scene.children;
@@ -67,7 +61,7 @@ export default class ThreejsDemo5 extends demoBase {
   };
   render(): VNode {
     return (
-      <div id="threejs_demo5">
+      <div id="threejs_demo6">
         <div class="title" title={this.title}>
           {this.title}
         </div>
@@ -87,22 +81,39 @@ export default class ThreejsDemo5 extends demoBase {
   }
   init(): void {
     this.initHelper();
-    this.addGUI();
     this.createPlane();
+    this.createMyGeoMetry();
     this.initCamera();
     this.initLight();
     this.initRenderer();
     this.renderer.setClearColor(0xffffff);
-    this.animate();
+    console.log(this.scene);
+    this.renderer.render(this.scene, this.camera);
+    // this.animate();
+  }
+  createMyGeoMetry(): void {
+    //   const vertices = new Float32Array([
+    //     -1.0, -1.0,  1.0,
+    //  1.0, -1.0,  1.0,
+    //  1.0,  1.0,  1.0,
+    //  1.0,  1.0,  1.0,
+    // -1.0,  1.0,  1.0,
+    // -1.0, -1.0,  1.0,
+    //   ]);
+    // const geometry = new three.BufferGeometry();
+    // geometry.setAttribute("myGeometry", new three.BufferAttribute(vertices, 3));
+    // const material = new three.MeshBasicMaterial({ color: 0xff0000 });
+    // const mesh = new three.Mesh(geometry, material);
+    // mesh.position.set(0, 0, 0);
+    // this.scene.add(mesh);
+    console.log(111);
   }
   addGUI(): void {
     // gui
-    this.gui.add(this.controlParams, "enableFog").name("启用雾化效果");
-    this.gui.add(this.controlParams, "disableFog").name("关闭雾化效果");
-    this.gui.add(this.controlParams, "addCube").name("添加物体");
-    this.gui.add(this.controlParams, "removeCube").name("删除物体");
-    this.gui.add(this.controlParams, "outputMesh").name("打印网格");
     this.gui.add(this.controlParams, "rotationSpeed", 0, 0.5).name("旋转速度");
+    this.gui.add(this.controlParams, "addCube").name("添加物体");
+    this.gui.add(this.controlParams, "removeCube");
+    this.gui.add(this.controlParams, "outputMesh");
     this.gui.add(this.controlParams, "numberOfObjects").listen();
     console.log("gui", this.gui);
   }
