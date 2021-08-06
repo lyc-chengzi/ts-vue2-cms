@@ -3,13 +3,13 @@ import { IPageJSONConfig } from "@/interface";
 import renderFactory from "./renderFactory";
 import { VNode } from "vue";
 @Component({
-  name: "cms-renderer",
+  name: "dynamic-renderer",
   renderError: (h, err) => {
     console.log("error", err);
     return h("div", "渲染时报错");
   },
 })
-export default class CMSRenderer extends Vue {
+export default class DynamicRenderer extends Vue {
   @Prop() public json?: IPageJSONConfig;
   mounted(): void {
     console.log("-----------", this.json);

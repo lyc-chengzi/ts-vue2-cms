@@ -1,12 +1,12 @@
 import { Vue, Component } from "vue-property-decorator";
 import "./demo1.less";
 import { VNode } from "vue";
-import CMSRenderer from "./renderer/cmsRenderer";
+import DynamicRenderer from "../renderer/dynamicRenderer";
 import data from "./demo1.data";
 
 @Component({
   components: {
-    "cms-renderer": CMSRenderer,
+    "dynamic-renderer": DynamicRenderer,
   },
 })
 export default class CMSDemo1 extends Vue {
@@ -17,7 +17,7 @@ export default class CMSDemo1 extends Vue {
   render(): VNode {
     return (
       <div id="cms_demo1">
-        <cms-renderer json={data}></cms-renderer>
+        <dynamic-renderer json={data}></dynamic-renderer>
       </div>
     );
   }
