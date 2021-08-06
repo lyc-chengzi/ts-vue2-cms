@@ -1,5 +1,5 @@
 import { CreateElement, VNode } from "vue";
-import { IPageJSONConfig } from ".";
+import { IPageJSONConfig } from "./cmsComponents";
 
 export type baseRenderFunc = (
   createElement: CreateElement,

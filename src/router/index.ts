@@ -31,4 +31,21 @@ const router = new VueRouter({
   routes: finalRoutes,
 });
 
+router.beforeEach((to, from, next) => {
+  console.log("to", to);
+  console.log("from", from);
+  const className = to.meta?.className || "";
+  if (className) {
+    const html = document.querySelector("html");
+    const body = document.querySelector("body");
+    if (html) {
+      html.setAttribute("class", className);
+    }
+    if (body) {
+      body.setAttribute("class", className);
+    }
+  }
+  next();
+});
+
 export default router;

@@ -1,5 +1,5 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { IPageJSONConfig } from "@/interface";
+import { IPageJSONConfig } from "@/interface/cmsComponents";
 import renderFactory from "./renderFactory";
 import { VNode } from "vue";
 @Component({

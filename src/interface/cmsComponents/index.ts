@@ -1,7 +1,6 @@
 import { EnumComponentType } from "@/enum";
-import { IButtonProps } from "./cmsComponents/button";
-import { IInputProps } from "./cmsComponents/input";
-
+import { IButtonProps } from "./button";
+import { IInputProps } from "./input";
 export interface IPageJSONConfig {
   id: string;
   name: string;
@@ -11,4 +10,10 @@ export interface IPageJSONConfig {
   props?: IButtonProps | IInputProps;
   css?: Record<string, string>;
   style?: string;
+  events?: IComponentEvent;
+}
+
+export interface IComponentEvent {
+  onClick?: (e: Event) => void;
+  onFocus?: (e: Event) => void;
 }

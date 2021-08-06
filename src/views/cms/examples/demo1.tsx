@@ -12,7 +12,6 @@ import data from "./demo1.data";
 export default class CMSDemo1 extends Vue {
   mounted(): void {
     console.log(data);
-    console.log(this.$slots);
   }
   render(): VNode {
     return (

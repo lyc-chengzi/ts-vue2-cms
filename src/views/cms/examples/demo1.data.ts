@@ -1,5 +1,5 @@
 import { EnumComponentType } from "@/enum";
-import { IPageJSONConfig } from "@/interface";
+import { IPageJSONConfig } from "@/interface/cmsComponents";
 
 const pageJSONConfig: IPageJSONConfig = {
   id: "root_97678944",
@@ -62,6 +62,75 @@ const pageJSONConfig: IPageJSONConfig = {
           },
         },
       ],
+    },
+    {
+      id: "layout_344r42",
+      name: "红色容器",
+      type: EnumComponentType.layout,
+      css: {
+        position: "relative",
+        display: "block",
+        "background-color": "red",
+        height: "400px",
+      },
+    },
+    {
+      id: "layout_344r43",
+      name: "蓝色容器",
+      type: EnumComponentType.layout,
+      css: {
+        position: "relative",
+        display: "flex",
+        "flex-flow": "row nowrap",
+        "background-color": "blue",
+        height: "280px",
+      },
+      children: [
+        {
+          id: "layout_344r4_3f",
+          name: "粉色容器1",
+          type: EnumComponentType.layout,
+          css: {
+            position: "relative",
+            display: "block",
+            flex: "1",
+            "background-color": "pink",
+            height: "280px",
+            "margin-right": "10px",
+          },
+        },
+        {
+          id: "layout_344r_s43",
+          name: "灰色容器",
+          type: EnumComponentType.layout,
+          css: {
+            position: "relative",
+            display: "block",
+            "background-color": "gray",
+            height: "280px",
+            flex: "1",
+          },
+        },
+      ],
+    },
+    {
+      id: "layout_344r44",
+      name: "屏幕固定容器",
+      type: EnumComponentType.layout,
+      css: {
+        position: "fixed",
+        display: "block",
+        "background-color": "yellow",
+        height: "80px",
+        width: "80px",
+        top: "0",
+        right: "0",
+      },
+      events: {
+        onClick: function (e) {
+          console.log(e);
+        },
+      },
     },
   ],
 };
