@@ -97,9 +97,9 @@ export default class ThreejsDemo4 extends Vue {
                                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                                 // @ts-ignore
                                 if (child.isMesh) {
-                                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                    // @ts-ignore
                                     roughnessMipmapper.generateMipmaps(
+                                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                        // @ts-ignore
                                         child.material
                                     );
                                 }
