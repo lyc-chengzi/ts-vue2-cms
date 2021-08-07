@@ -22,6 +22,12 @@ export default new Vuex.Store({
       json: getDefaultJSONConfig(),
       element: undefined,
     },
+    root_97678944: {
+      goodsList: [],
+      button_2refrf: {
+        users: {},
+      },
+    },
   },
   mutations: {},
   actions: {},

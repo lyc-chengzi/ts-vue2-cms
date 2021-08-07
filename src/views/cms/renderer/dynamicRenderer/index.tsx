@@ -2,7 +2,7 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 import { IPageJSONConfig } from "@/interface/cmsComponents";
 import renderFactory from "./renderFactory";
 import { VNode } from "vue";
-@Component({
+@Component<DynamicRenderer>({
   name: "dynamic-renderer",
   renderError: (h, err) => {
     console.log("error", err);

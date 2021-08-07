@@ -10,6 +10,7 @@ export interface IButtonProps {
   [EnumButtonPropsKey.loading]?: boolean | { delay: number };
   [EnumButtonPropsKey.shape]?: "circle" | "round";
   [EnumButtonPropsKey.type]?: "primary" | "dashed" | "danger" | "link";
+  [EnumButtonPropsKey.scheme]?: Record<string, string>;
 }
 
 export interface IButtonEvents extends IComponentEvent {

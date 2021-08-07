@@ -1,4 +1,6 @@
+import { EnumComponentType } from "@/enum";
 import { componentRenderFunc } from "@/interface/renderer";
+import { rendererRegister } from "./renderFactory";
 
 const render: componentRenderFunc = (h, element, baseRender) => {
   return h(

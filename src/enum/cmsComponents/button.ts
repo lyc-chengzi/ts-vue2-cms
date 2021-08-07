@@ -7,4 +7,5 @@ export enum EnumButtonPropsKey {
   loading = "loading",
   shape = "shape",
   type = "type",
+  scheme = "scheme",
 }

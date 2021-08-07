@@ -1,7 +1,7 @@
 import { componentRenderFunc } from "@/interface/renderer";
 import { Layout } from "ant-design-vue";
 
-const render: componentRenderFunc = function (h, element, baseRender) {
+const render: componentRenderFunc = function (h, element, factory) {
   console.log(element);
   return h(
     Layout,
@@ -21,7 +21,7 @@ const render: componentRenderFunc = function (h, element, baseRender) {
             },
       },
     },
-    element.children ? element.children.map((c) => baseRender(h, c)) : undefined
+    element.children ? element.children.map((c) => factory(h, c)) : undefined
   );
 };
 

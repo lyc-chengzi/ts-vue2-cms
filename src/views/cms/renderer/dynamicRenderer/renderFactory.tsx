@@ -2,23 +2,46 @@ import buttonRenderer from "./buttonRenderer";
 import rootRenderer from "./rootRenderer";
 import inputRenderer from "./inputRenderer";
 import layoutRenderer from "./layoutRenderer";
+import rateRenderer from "./rateRenderer";
 import { EnumComponentType } from "@/enum";
-import { baseRenderFunc } from "@/interface/renderer";
+import { baseRenderFunc, componentRenderFunc } from "@/interface/renderer";
 
-const render: baseRenderFunc = (h, element) => {
+interface IRendererFactoryType {
+  type: EnumComponentType;
+  componentRender: componentRenderFunc;
+}
+
+const rendererTypes: IRendererFactoryType[] = [];
+
+const renderFactory: baseRenderFunc = (h, element) => {
   if (!element) return undefined;
-  // 渲染根节点
-  if (element.type === EnumComponentType.root) {
-    return rootRenderer(h, element, render);
+
+  for (let i = 0; i < rendererTypes.length; i++) {
+    const renderer = rendererTypes[i];
+    if (element.type === renderer.type) {
+      return renderer.componentRender(h, element, renderFactory);
+    }
   }
-  // 渲染layout组件
-  else if (element.type === EnumComponentType.layout) {
-    return layoutRenderer(h, element, render);
-  } else if (element.type === EnumComponentType.button) {
-    return buttonRenderer(h, element, render);
-  } else if (element.type === EnumComponentType.input) {
-    return inputRenderer(h, element, render);
-  }
+
+  // } else if (element.type === EnumComponentType.rate) {
+  //   return (
+  //     <RateRenderer element={element}></RateRenderer>
+  //   );
+  // }
+};
+// 注册渲染器
+const rendererRegister = (
+  elementType: EnumComponentType,
+  componentRender: componentRenderFunc
+) => {
+  rendererTypes.push({ type: elementType, componentRender });
 };
 
-export default render;
+export default renderFactory;
+export { rendererRegister };
+
+rendererRegister(EnumComponentType.root, rootRenderer);
+rendererRegister(EnumComponentType.layout, layoutRenderer);
+rendererRegister(EnumComponentType.button, buttonRenderer);
+rendererRegister(EnumComponentType.input, inputRenderer);
+rendererRegister(EnumComponentType.rate, rateRenderer);

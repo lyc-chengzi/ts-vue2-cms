@@ -3,4 +3,5 @@ export enum EnumComponentType {
   layout = "layout",
   button = "button",
   input = "input",
+  rate = "rate",
 }

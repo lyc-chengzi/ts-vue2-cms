@@ -33,7 +33,7 @@ const pageJSONConfig: IPageJSONConfig = {
           },
           props: {
             text: "提交1",
-            type: "primary",
+            type: "dashed",
           },
         },
         {
@@ -73,6 +73,16 @@ const pageJSONConfig: IPageJSONConfig = {
         "background-color": "red",
         height: "400px",
       },
+      children: [
+        {
+          id: "rate_344r4sc2",
+          name: "评分组件",
+          type: EnumComponentType.rate,
+          props: {
+            defaultValue: 4,
+          },
+        },
+      ],
     },
     {
       id: "layout_344r43",
