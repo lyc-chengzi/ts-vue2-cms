@@ -8,7 +8,7 @@ import "ant-design-vue/dist/antd.css";
 Vue.config.productionTip = false;
 Vue.use(antdV);
 new Vue({
-  router,
-  store,
-  render: (h) => h(App),
+    router,
+    store,
+    render: (h) => h(App),
 }).$mount("#app");

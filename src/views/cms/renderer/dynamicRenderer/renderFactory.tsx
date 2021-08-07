@@ -7,34 +7,28 @@ import { EnumComponentType } from "@/enum";
 import { baseRenderFunc, componentRenderFunc } from "@/interface/renderer";
 
 interface IRendererFactoryType {
-  type: EnumComponentType;
-  componentRender: componentRenderFunc;
+    type: EnumComponentType;
+    componentRender: componentRenderFunc;
 }
 
 const rendererTypes: IRendererFactoryType[] = [];
 
 const renderFactory: baseRenderFunc = (h, element) => {
-  if (!element) return undefined;
+    if (!element) return undefined;
 
-  for (let i = 0; i < rendererTypes.length; i++) {
-    const renderer = rendererTypes[i];
-    if (element.type === renderer.type) {
-      return renderer.componentRender(h, element, renderFactory);
+    for (let i = 0; i < rendererTypes.length; i++) {
+        const renderer = rendererTypes[i];
+        if (element.type === renderer.type) {
+            return renderer.componentRender(h, element, renderFactory);
+        }
     }
-  }
-
-  // } else if (element.type === EnumComponentType.rate) {
-  //   return (
-  //     <RateRenderer element={element}></RateRenderer>
-  //   );
-  // }
 };
 // 注册渲染器
 const rendererRegister = (
-  elementType: EnumComponentType,
-  componentRender: componentRenderFunc
-) => {
-  rendererTypes.push({ type: elementType, componentRender });
+    elementType: EnumComponentType,
+    componentRender: componentRenderFunc
+): void => {
+    rendererTypes.push({ type: elementType, componentRender });
 };
 
 export default renderFactory;

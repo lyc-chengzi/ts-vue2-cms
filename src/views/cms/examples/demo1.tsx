@@ -5,19 +5,19 @@ import DynamicRenderer from "../renderer/dynamicRenderer";
 import data from "./demo1.data";
 
 @Component({
-  components: {
-    "dynamic-renderer": DynamicRenderer,
-  },
+    components: {
+        "dynamic-renderer": DynamicRenderer,
+    },
 })
 export default class CMSDemo1 extends Vue {
-  mounted(): void {
-    console.log(data);
-  }
-  render(): VNode {
-    return (
-      <div id="cms_demo1">
-        <dynamic-renderer json={data}></dynamic-renderer>
-      </div>
-    );
-  }
+    mounted(): void {
+        console.log(data);
+    }
+    render(): VNode {
+        return (
+            <div id="cms_demo1">
+                <dynamic-renderer json={data}></dynamic-renderer>
+            </div>
+        );
+    }
 }

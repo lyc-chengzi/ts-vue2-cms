@@ -1,4 +1,4 @@
 export interface IInputProps {
-  placeholder?: string;
-  defaultValue?: string;
+    placeholder?: string;
+    defaultValue?: string;
 }
