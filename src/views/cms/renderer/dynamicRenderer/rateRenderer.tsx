@@ -23,12 +23,7 @@ export class RateRenderer extends Vue {
 
     render(): VNode | undefined {
         const props = this.element?.props as IRateProps;
-        return (
-            <a-rate
-                value={props.value}
-                defaultValue={props.defaultValue}
-            ></a-rate>
-        );
+        return <a-rate defaultValue={props.defaultValue}></a-rate>;
     }
 }
 
