@@ -1,6 +1,6 @@
 import { componentRenderFunc } from "@/interface/renderer";
 
-const render: componentRenderFunc = (h, element, baseRender) => {
+const render: componentRenderFunc = (h, element, factory) => {
     return h(
         "div",
         {
@@ -12,7 +12,7 @@ const render: componentRenderFunc = (h, element, baseRender) => {
             },
         },
         element.children
-            ? element.children.map((c) => baseRender(h, c))
+            ? element.children.map((c) => factory(h, c))
             : undefined
     );
 };

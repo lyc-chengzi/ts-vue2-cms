@@ -1,12 +1,12 @@
 import { CreateElement, VNode } from "vue";
 import { IPageJSONConfig } from "./cmsComponents";
 
-export type baseRenderFunc = (
+export type factoryRenderFunc = (
     createElement: CreateElement,
     element?: IPageJSONConfig
 ) => VNode | undefined;
 export type componentRenderFunc = (
     createElement: CreateElement,
     element: IPageJSONConfig,
-    baseRender: baseRenderFunc
+    factory: factoryRenderFunc
 ) => VNode | undefined;

@@ -4,7 +4,7 @@ import inputRenderer from "./inputRenderer";
 import layoutRenderer from "./layoutRenderer";
 import rateRenderer from "./rateRenderer";
 import { EnumComponentType } from "@/enum";
-import { baseRenderFunc, componentRenderFunc } from "@/interface/renderer";
+import { factoryRenderFunc, componentRenderFunc } from "@/interface/renderer";
 
 interface IRendererFactoryType {
     type: EnumComponentType;
@@ -13,7 +13,7 @@ interface IRendererFactoryType {
 
 const rendererTypes: IRendererFactoryType[] = [];
 
-const renderFactory: baseRenderFunc = (h, element) => {
+const renderFactory: factoryRenderFunc = (h, element) => {
     if (!element) return undefined;
 
     for (let i = 0; i < rendererTypes.length; i++) {
