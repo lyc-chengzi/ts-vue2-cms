@@ -20,10 +20,20 @@ import { mapState } from "vuex";
 })
 export class RateRenderer extends Vue {
     @Prop() public element?: IPageJSONConfig;
-
+    onValueChange(value: number): void {
+        console.log(11111111);
+        const props = (this.element?.props || {}) as IRateProps;
+        console.log("IRateProps", props);
+        props.value = value;
+    }
     render(): VNode | undefined {
         const props = this.element?.props as IRateProps;
-        return <a-rate defaultValue={props.defaultValue}></a-rate>;
+        return (
+            <a-rate
+                defaultValue={props.defaultValue}
+                onChange={this.onValueChange.bind(this)}
+            ></a-rate>
+        );
     }
 }
 
