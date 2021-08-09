@@ -16,8 +16,14 @@ module.exports = {
     rules: {
         "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
         "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
-        indent: [2, 4],
+        indent: ["error", 4],
         "@typescript-eslint/no-explicit-any": ["off"],
+        "prettier/prettier": [
+            "warn",
+            {
+                tabWidth: 4,
+            },
+        ],
     },
     overrides: [
         {
