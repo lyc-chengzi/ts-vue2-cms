@@ -5,6 +5,7 @@
             <router-link to="/about">About</router-link> |
             <router-link to="/threejs/index">threejs</router-link> |
             <router-link to="/cms/demo1">cms动态渲染器</router-link> |
+            <router-link to="/cms/demo2">cms模板渲染器</router-link> |
             <router-link to="/cms/designer">cmsUI设计器</router-link>
         </div>
         <router-view />

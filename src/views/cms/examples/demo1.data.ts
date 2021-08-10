@@ -18,18 +18,18 @@ const pageJSONConfig: IPageJSONConfig = {
                 position: "relative",
                 display: "flex",
                 "flex-flow": "row nowrap",
-                "padding-top": "20px",
+                padding: "20px",
                 "justify-content": "center",
                 "align-items": "center",
             },
             children: [
                 {
-                    id: "button_2refrf",
+                    id: "button_2refrf1",
                     name: "按钮1",
                     type: EnumComponentType.button,
                     css: {
                         flex: "1",
-                        margin: "20px",
+                        margin: "20px 20px 20px 0",
                     },
                     props: {
                         text: "提交1",
@@ -37,12 +37,12 @@ const pageJSONConfig: IPageJSONConfig = {
                     },
                 },
                 {
-                    id: "button_2refrf",
+                    id: "button_2refrf2",
                     name: "按钮2",
                     type: EnumComponentType.button,
                     css: {
                         flex: "1",
-                        margin: "20px",
+                        margin: "20px 20px 20px 0",
                     },
                     props: {
                         text: "提交2",
@@ -80,6 +80,7 @@ const pageJSONConfig: IPageJSONConfig = {
                     type: EnumComponentType.rate,
                     props: {
                         defaultValue: 4,
+                        value: 4,
                     },
                 },
             ],

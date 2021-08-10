@@ -15,6 +15,19 @@ const routes: Array<RouteConfig> = [
             ),
     },
     {
+        name: "cms_demo2",
+        path: "/cms/demo2",
+        meta: {
+            className: "cms-templateRenderer",
+            label: "模板渲染器",
+            title: "通过json文件动态渲染出vue组件",
+        },
+        component: () =>
+            import(
+                /* webpackChunkName: "cms_demo1" */ "../views/cms/examples/demo2.vue"
+            ),
+    },
+    {
         name: "cms_designer",
         path: "/cms/designer",
         meta: {

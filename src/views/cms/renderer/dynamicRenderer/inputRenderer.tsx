@@ -11,6 +11,7 @@ const render: componentRenderFunc = function (h, element) {
         <a-input
             placeholder={defaultProps.placeholder}
             defaultValue={defaultProps.defaultValue}
+            style={element.css}
         ></a-input>
     );
 };

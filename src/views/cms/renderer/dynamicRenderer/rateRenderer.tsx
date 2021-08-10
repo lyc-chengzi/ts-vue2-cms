@@ -1,12 +1,18 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { IPageJSONConfig } from "@/interface/cmsComponents";
-import { VNode } from "vue";
+import { VNode, PropType } from "vue";
 import { IRateProps } from "@/interface/cmsComponents/rate";
 import { componentRenderFunc } from "@/interface/renderer";
 import { mapState } from "vuex";
 
 @Component<RateRenderer>({
     name: "rate-renderer",
+    props: {
+        element: {
+            type: Object as PropType<IPageJSONConfig>,
+            required: true,
+        },
+    },
     renderError: (h, err) => {
         console.log("error", err);
         return h("div", "rate-renderer渲染时报错");
@@ -21,7 +27,6 @@ import { mapState } from "vuex";
 export class RateRenderer extends Vue {
     @Prop() public element?: IPageJSONConfig;
     onValueChange(value: number): void {
-        console.log(11111111);
         const props = (this.element?.props || {}) as IRateProps;
         console.log("IRateProps", props);
         props.value = value;

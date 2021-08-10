@@ -1,7 +1,7 @@
 export enum EnumComponentType {
-    root = "root",
-    layout = "layout",
-    button = "button",
-    input = "input",
-    rate = "rate",
+    root = "root-renderer",
+    layout = "layout-renderer",
+    button = "button-renderer",
+    input = "input-renderer",
+    rate = "rate-renderer",
 }
