@@ -1,5 +1,10 @@
 <template>
-    <a-layout :id="element.id" :style="element.css">
+    <!--只渲染layout组件-->
+    <a-layout
+        v-if="element.type === elementType"
+        :id="element.id"
+        :style="element.css"
+    >
         <component
             :is="child.type"
             :element="child"
@@ -24,6 +29,10 @@ import TemplateInputRenderer from "./inputRenderer.vue";
 import TemplateRateRenderer from "./rateRenderer.vue";
 import { EnumComponentType } from "@/enum";
 
+interface IData {
+    elementType: EnumComponentType;
+}
+
 @Component<TemplateLayoutRenderer>({
     name: "layout-renderer",
     props: {
@@ -31,6 +40,11 @@ import { EnumComponentType } from "@/enum";
             type: Object as PropType<IPageJSONConfig>,
             required: true,
         },
+    },
+    data: function (): IData {
+        return {
+            elementType: EnumComponentType.layout,
+        } as IData;
     },
     components: {
         [EnumComponentType.layout]: TemplateLayoutRenderer,

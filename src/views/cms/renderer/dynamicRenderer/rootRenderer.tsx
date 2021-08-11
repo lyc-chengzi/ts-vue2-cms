@@ -10,6 +10,7 @@ const render: componentRenderFunc = (h, element, factory) => {
             class: {
                 "tdp-cms-root": true,
             },
+            style: element.css,
         },
         element.children
             ? element.children.map((c) => factory(h, c))

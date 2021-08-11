@@ -1,5 +1,6 @@
 import { EnumComponentType } from "@/enum";
 import { IPageJSONConfig } from "@/interface/cmsComponents";
+import { IButtonEvents } from "@/interface/cmsComponents/button";
 
 const pageJSONConfig: IPageJSONConfig = {
     id: "root_97678944",
@@ -35,6 +36,11 @@ const pageJSONConfig: IPageJSONConfig = {
                         text: "提交1",
                         type: "dashed",
                     },
+                    events: {
+                        onClick: function (e, component) {
+                            console.log(e, component);
+                        },
+                    } as IButtonEvents,
                 },
                 {
                     id: "button_2refrf2",

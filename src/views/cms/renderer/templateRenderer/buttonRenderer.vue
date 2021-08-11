@@ -1,6 +1,11 @@
 <template>
-    <a-button :id="element.id" :type="element.props.type" :style="element.css">
-        {{ element.props.text }}
+    <a-button
+        :id="element.id"
+        :type="element.props.type"
+        :style="element.css"
+        @click="clickHandler"
+    >
+        {{ element.props.text || "按钮" }}
     </a-button>
 </template>
 
@@ -14,6 +19,7 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { IPageJSONConfig } from "@/interface/cmsComponents";
 import { PropType } from "vue";
+import { IButtonEvents } from "@/interface/cmsComponents/button";
 @Component<TemplateButtonRenderer>({
     name: "template-button-renderer",
     props: {
@@ -28,5 +34,10 @@ import { PropType } from "vue";
 })
 export default class TemplateButtonRenderer extends Vue {
     @Prop() public element?: IPageJSONConfig;
+    clickHandler(e: Event): void {
+        const events = (this.element?.events || {}) as IButtonEvents;
+        console.log("button renderer click event & events", e, events);
+        if (events.onClick) events.onClick(e, this);
+    }
 }
 </script>

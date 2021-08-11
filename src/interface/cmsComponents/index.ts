@@ -15,6 +15,6 @@ export interface IPageJSONConfig {
 }
 
 export interface IComponentEvent {
-    onClick?: (e: Event) => void;
-    onFocus?: (e: Event) => void;
+    onClick?: (e: Event, component: Vue) => void;
+    onFocus?: (e: Event, component: Vue) => void;
 }

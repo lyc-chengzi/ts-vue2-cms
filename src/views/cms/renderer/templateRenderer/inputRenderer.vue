@@ -3,6 +3,7 @@
         :placeholder="element.props.placeholder"
         :defaultValue="element.props.defaultValue"
         :style="element.css"
+        v-model="element.props.value"
     ></a-input>
 </template>
 
