@@ -26,7 +26,7 @@ import { mapGetters } from "vuex";
     },
 })
 export default class Designer extends Vue {
-    initComponentList() {
+    initComponentList(): void {
         // @ts-ignore
         if (this.pages.length === 0) {
             this.$store.commit(commit_app_init_designer_page);

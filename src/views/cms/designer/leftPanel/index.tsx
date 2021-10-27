@@ -59,7 +59,7 @@ export default class DesignerLeftPanel extends Vue {
     public secondMenuList: IMenus[] = [];
     renderMenus(): VNode[] {
         // @ts-ignore
-        const menus = this._menus;
+        const menus: IMenus[] = this._menus;
         // 选中的一级菜单
         const selectFirstMenu: IMenus | undefined = menus.find(
             (c: IMenus) => c.selected === true
@@ -127,25 +127,25 @@ export default class DesignerLeftPanel extends Vue {
         );
         return [firstMenu, secondMenu];
     }
-    selectFirstMenu = (menu: IMenus) => {
+    selectFirstMenu = (menu: IMenus): void => {
         this.menus.forEach((c) => {
             c.selected = false;
         });
         menu.selected = true;
     };
-    dragStart = () => {
+    dragStart = (): void => {
         console.log("designer-left-panel---> dragStart");
     };
-    dragAdd = () => {
+    dragAdd = (): void => {
         console.log("designer-left-panel---> dragAdd");
     };
-    dragUpdate = () => {
+    dragUpdate = (): void => {
         console.log("designer-left-panel---> dragUpdate");
     };
-    dragEnd = () => {
+    dragEnd = (): void => {
         console.log("designer-left-panel---> dragEnd");
     };
-    render() {
+    render(): VNode {
         return <div class="designer-left-panel">{this.renderMenus()}</div>;
     }
 }

@@ -1,7 +1,7 @@
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { Vue, Component } from "vue-property-decorator";
 import { VNode } from "vue";
 import Draggable from "vuedraggable";
-import { IComponentConfig } from "@/interface/cmsComponents";
+// import { IComponentConfig } from "@/interface/cmsComponents";
 import "./index.less";
 import { EnumComponentGroup } from "@/enum/cmsDesigner";
 import { mapGetters } from "vuex";
@@ -19,18 +19,18 @@ export default class DesignerMainPanel extends Vue {
         // console.log(this.$store);
     }
     public dragList: IDesignerComponent[] = [];
-    dragStart = () => {
+    dragStart = (): void => {
         console.log("designer-main-panel---> dragStart");
     };
-    dragAdd = (e: any) => {
-        console.log("designer-main-panel---> dragAdd", e);
-        const target = e.target;
-        const srcElement = e.srcElement;
+    dragAdd = (): void => {
+        console.log("designer-main-panel---> dragAdd");
+        // const target = e.target;
+        // const srcElement = e.srcElement;
     };
-    dragUpdate = () => {
+    dragUpdate = (): void => {
         console.log("designer-main-panel---> dragUpdate");
     };
-    dragEnd = () => {
+    dragEnd = (): void => {
         console.log("designer-main-panel---> dragEnd");
     };
 
@@ -41,7 +41,7 @@ export default class DesignerMainPanel extends Vue {
             },
         };
         // @ts-ignore
-        const currentPage: IComponentConfig = this.currentPage;
+        // const currentPage: IComponentConfig = this.currentPage;
         return (
             <div class="designer-main-panel">
                 <Draggable
