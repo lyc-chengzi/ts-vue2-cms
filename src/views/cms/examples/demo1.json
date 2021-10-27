@@ -1,12 +1,8 @@
-import { EnumComponentType } from "@/enum";
-import { IComponentConfig } from "@/interface/cmsComponents";
-import { IButtonEvents } from "@/interface/cmsComponents/button";
-
-const pageJSONConfig: IComponentConfig = {
-    id: "root_97678944",
-    name: "页面1",
-    type: EnumComponentType.page,
-    css: {
+{
+    "id": "root_97678944",
+    "name": "页面1",
+    "type": "root-renderer",
+    "css": {
         position: "relative",
         padding: "10px",
     },

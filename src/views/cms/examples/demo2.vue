@@ -1,11 +1,12 @@
 <template>
     <div class="cms-demo2">
-        <template-renderer :json="json"></template-renderer>
+        <template-renderer :json="jsonData"></template-renderer>
     </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import { mapState } from "vuex";
 import TemplateRenderer from "../renderer/templateRenderer/index.vue";
 import jsonData from "./demo1.data";
 
@@ -13,9 +14,12 @@ export default Vue.extend({
     components: {
         "template-renderer": TemplateRenderer,
     },
-    data: function () {
+    computed: {
+        ...mapState(["pages", "currentPage"]),
+    },
+    data: function (): any {
         return {
-            json: jsonData,
+            jsonData,
         };
     },
 });

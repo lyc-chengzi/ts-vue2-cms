@@ -13,13 +13,13 @@ interface IRendererFactoryType {
 
 const rendererTypes: IRendererFactoryType[] = [];
 
-const renderFactory: factoryRenderFunc = (h, element) => {
-    if (!element) return undefined;
+const renderFactory: factoryRenderFunc = (h, state) => {
+    if (!state) return undefined;
 
     for (let i = 0; i < rendererTypes.length; i++) {
         const renderer = rendererTypes[i];
-        if (element.type === renderer.type) {
-            return renderer.componentRender(h, element, renderFactory);
+        if (state.type === renderer.type) {
+            return renderer.componentRender(h, state, renderFactory);
         }
     }
 };
@@ -34,7 +34,7 @@ const rendererRegister = (
 export default renderFactory;
 export { rendererRegister };
 
-rendererRegister(EnumComponentType.root, rootRenderer);
+rendererRegister(EnumComponentType.page, rootRenderer);
 rendererRegister(EnumComponentType.layout, layoutRenderer);
 rendererRegister(EnumComponentType.button, buttonRenderer);
 rendererRegister(EnumComponentType.input, inputRenderer);

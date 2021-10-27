@@ -1,15 +1,16 @@
 <template>
     <!--只渲染layout组件-->
     <a-layout
-        v-if="element.type === elementType"
-        :id="element.id"
-        :style="element.css"
+        v-if="state.type === elementType"
+        :id="state.id"
+        :style="combiCss"
     >
         <component
             :is="child.type"
-            :element="child"
-            v-for="child in element.children"
+            :state="child"
+            v-for="child in state.children"
             :key="child.id"
+            :parentId="state.id"
         ></component>
     </a-layout>
 </template>
@@ -21,39 +22,6 @@
 </style>
 
 <script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
-import { IPageJSONConfig } from "@/interface/cmsComponents";
-import { PropType } from "vue";
-import TemplateButtonRenderer from "./buttonRenderer.vue";
-import TemplateInputRenderer from "./inputRenderer.vue";
-import TemplateRateRenderer from "./rateRenderer.vue";
-import { EnumComponentType } from "@/enum";
-
-interface IData {
-    elementType: EnumComponentType;
-}
-
-@Component<TemplateLayoutRenderer>({
-    name: "layout-renderer",
-    props: {
-        element: {
-            type: Object as PropType<IPageJSONConfig>,
-            required: true,
-        },
-    },
-    data: function (): IData {
-        return {
-            elementType: EnumComponentType.layout,
-        } as IData;
-    },
-    components: {
-        [EnumComponentType.layout]: TemplateLayoutRenderer,
-        [EnumComponentType.button]: TemplateButtonRenderer,
-        [EnumComponentType.input]: TemplateInputRenderer,
-        [EnumComponentType.rate]: TemplateRateRenderer,
-    },
-})
-export default class TemplateLayoutRenderer extends Vue {
-    @Prop() public element?: IPageJSONConfig;
-}
+import LayoutRenderer from "./layoutRenderer";
+export default LayoutRenderer;
 </script>

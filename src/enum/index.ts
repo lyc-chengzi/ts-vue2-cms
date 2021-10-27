@@ -1,5 +1,5 @@
 export enum EnumComponentType {
-    root = "root-renderer",
+    page = "page-renderer",
     layout = "layout-renderer",
     button = "button-renderer",
     input = "input-renderer",

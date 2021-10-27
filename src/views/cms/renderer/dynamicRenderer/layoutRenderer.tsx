@@ -1,26 +1,24 @@
 import { componentRenderFunc } from "@/interface/renderer";
 import { Layout } from "ant-design-vue";
 
-const render: componentRenderFunc = function (h, element, factory) {
-    const onClick = element.events?.onClick
-        ? element.events?.onClick
+const render: componentRenderFunc = function (h, state, factory) {
+    const onClick = state.events?.onClick
+        ? state.events?.onClick
         : () => console.log("layout click");
     const nativeOn = { click: onClick };
     return h(
         Layout,
         {
             attrs: {
-                id: element.id,
+                id: state.id,
             },
             class: {
                 "tdp-cms-layout": true,
             },
-            style: element.css,
+            style: state.css,
             nativeOn: nativeOn,
         },
-        element.children
-            ? element.children.map((c) => factory(h, c))
-            : undefined
+        state.children ? state.children.map((c) => factory(h, c)) : undefined
     );
 };
 

@@ -1,5 +1,5 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { IPageJSONConfig } from "@/interface/cmsComponents";
+import { IComponentConfig } from "@/interface/cmsComponents";
 import renderFactory from "./renderFactory";
 import { VNode } from "vue";
 @Component<DynamicRenderer>({
@@ -10,7 +10,7 @@ import { VNode } from "vue";
     },
 })
 export default class DynamicRenderer extends Vue {
-    @Prop() public json?: IPageJSONConfig;
+    @Prop() public json?: IComponentConfig;
     mounted(): void {
         console.log("-----------", this.json);
     }

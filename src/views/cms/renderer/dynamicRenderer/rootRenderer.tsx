@@ -1,20 +1,18 @@
 import { componentRenderFunc } from "@/interface/renderer";
 
-const render: componentRenderFunc = (h, element, factory) => {
+const render: componentRenderFunc = (h, state, factory) => {
     return h(
         "div",
         {
             attrs: {
-                id: element.id,
+                id: state.id,
             },
             class: {
                 "tdp-cms-root": true,
             },
-            style: element.css,
+            style: state.css,
         },
-        element.children
-            ? element.children.map((c) => factory(h, c))
-            : undefined
+        state.children ? state.children.map((c) => factory(h, c)) : undefined
     );
 };
 

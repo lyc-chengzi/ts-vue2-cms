@@ -1,5 +1,17 @@
+import { EnumComponentType } from "@/enum";
 import { EnumButtonPropsKey } from "@/enum/cmsComponents/button";
 import { IComponentEvent } from "./index";
+
+export interface IButtonModuleState {
+    id: string;
+    name: string;
+    type: EnumComponentType.button;
+    apis?: string[];
+    props?: IButtonProps;
+    css?: Record<string, string>;
+    style?: string;
+    events?: IButtonEvents;
+}
 
 export interface IButtonProps {
     [EnumButtonPropsKey.text]?: string;

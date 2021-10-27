@@ -1,8 +1,8 @@
 import { componentRenderFunc } from "@/interface/renderer";
 import { IInputProps } from "@/interface/cmsComponents/input";
 
-const render: componentRenderFunc = function (h, element) {
-    const props = (element.props || {}) as IInputProps;
+const render: componentRenderFunc = function (h, state) {
+    const props = (state.props || {}) as IInputProps;
     const defaultProps: IInputProps = {
         placeholder: props.placeholder || "",
         defaultValue: props.defaultValue || "",
@@ -11,7 +11,7 @@ const render: componentRenderFunc = function (h, element) {
         <a-input
             placeholder={defaultProps.placeholder}
             defaultValue={defaultProps.defaultValue}
-            style={element.css}
+            style={state.css}
         ></a-input>
     );
 };
