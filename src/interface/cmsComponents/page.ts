@@ -1,6 +1,7 @@
-import { IComponentConfig } from "./index";
+import { IDesignerComponent } from "../cmsDesigner";
 
-export interface IPageModuleState extends IComponentConfig {
+export interface IPageModuleState extends IDesignerComponent {
+    selected?: boolean;
     apiDatas?: any[];
     eventsDatas?: any[];
     nodes?: any[];

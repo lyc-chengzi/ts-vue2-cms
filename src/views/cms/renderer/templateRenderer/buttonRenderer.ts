@@ -33,15 +33,14 @@ export default class TemplateButtonRenderer extends Vue {
     }
 }
 
-export const registerComponent: registerComponentFunc = function (
-    componentList
-) {
+export const registerComponent: registerComponentFunc = function () {
     const button: IDesignerComponent = {
+        id: "",
         name: "button",
         title: "按钮",
         icon: "button",
         group: EnumComponentGroup.form,
         type: EnumComponentType.button,
     };
-    componentList.push(button);
+    return button;
 };

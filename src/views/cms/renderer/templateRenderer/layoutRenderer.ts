@@ -1,6 +1,8 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
-
 import { PropType } from "vue";
+
+import Draggable from "vuedraggable";
+
 import TemplateButtonRenderer from "./buttonRenderer.vue";
 import TemplateInputRenderer from "./inputRenderer.vue";
 import TemplateRateRenderer from "./rateRenderer.vue";
@@ -13,14 +15,14 @@ import {
 } from "@/interface/cmsDesigner";
 
 interface IData {
-    elementType: EnumComponentType;
+    componentType: EnumComponentType;
 }
 
 @Component<TemplateLayoutRenderer>({
     name: "layout-renderer",
     data: function (): IData {
         return {
-            elementType: EnumComponentType.layout,
+            componentType: EnumComponentType.layout,
         };
     },
     components: {
@@ -28,6 +30,7 @@ interface IData {
         [EnumComponentType.button]: TemplateButtonRenderer,
         [EnumComponentType.input]: TemplateInputRenderer,
         [EnumComponentType.rate]: TemplateRateRenderer,
+        Draggable: Draggable,
     },
     computed: {
         // 组合样式
@@ -55,15 +58,14 @@ export default class TemplateLayoutRenderer extends Vue {
     public parentId?: string;
 }
 
-export const registerComponent: registerComponentFunc = function (
-    componentList
-) {
+export const registerComponent: registerComponentFunc = function () {
     const layout: IDesignerComponent = {
+        id: "",
         name: "layout",
         title: "容器",
         icon: "",
         group: EnumComponentGroup.layout,
         type: EnumComponentType.layout,
     };
-    componentList.push(layout);
+    return layout;
 };

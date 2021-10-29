@@ -4,8 +4,7 @@ import "./index.less";
 import DesignerRight from "./rightPanel";
 import DesignerLeft from "./leftPanel";
 import DesignerMain from "./mainPanel";
-import { commit_app_init_designer_page } from "@/store";
-import registerComponent from "../renderer/templateRenderer/componentRegister";
+import { commit_designer_init_designer_page } from "@/store/modules/designer.module";
 import { mapGetters } from "vuex";
 
 @Component<Designer>({
@@ -16,7 +15,7 @@ import { mapGetters } from "vuex";
         DesignerMain,
     },
     computed: {
-        ...mapGetters(["pages"]),
+        ...mapGetters("designer", ["pages"]),
     },
     created(): void {
         this.initComponentList();
@@ -29,8 +28,9 @@ export default class Designer extends Vue {
     initComponentList(): void {
         // @ts-ignore
         if (this.pages.length === 0) {
-            this.$store.commit(commit_app_init_designer_page);
-            registerComponent(this.$store.state.componentList);
+            this.$store.commit(
+                `designer/${commit_designer_init_designer_page}`
+            );
         }
     }
     render(): VNode {

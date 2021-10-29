@@ -1,7 +1,7 @@
 <template>
     <!--只渲染layout组件-->
     <a-layout
-        v-if="state.type === elementType"
+        v-if="state.type === componentType"
         :id="state.id"
         :style="combiCss"
     >

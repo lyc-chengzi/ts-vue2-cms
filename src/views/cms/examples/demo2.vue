@@ -15,7 +15,7 @@ export default Vue.extend({
         "template-renderer": TemplateRenderer,
     },
     computed: {
-        ...mapState(["pages", "currentPage"]),
+        ...mapState(["pages", "selectedPage"]),
     },
     data: function (): any {
         return {

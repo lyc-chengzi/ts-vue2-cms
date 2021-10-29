@@ -11,7 +11,7 @@ export const commit_page_addLayout = "commit_page_addLayout";
 
 const PageModule = <Module<IPageModuleState, any>>{
     namespaced: true,
-    store: {},
+    state: {} as IPageModuleState,
     mutations: {
         [commit_page_addLayout]: (
             state,

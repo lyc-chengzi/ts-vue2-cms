@@ -1,4 +1,5 @@
 import { EnumComponentType } from "@/enum";
+import { EnumComponentGroup } from "@/enum/cmsDesigner";
 import { IComponentConfig } from "@/interface/cmsComponents";
 import { IButtonEvents } from "@/interface/cmsComponents/button";
 
@@ -6,6 +7,7 @@ const pageJSONConfig: IComponentConfig = {
     id: "root_97678944",
     name: "页面1",
     type: EnumComponentType.page,
+    group: EnumComponentGroup.page,
     css: {
         position: "relative",
         padding: "10px",
@@ -15,6 +17,7 @@ const pageJSONConfig: IComponentConfig = {
             id: "layout_344r4",
             name: "横向布局",
             type: EnumComponentType.layout,
+            group: EnumComponentGroup.layout,
             css: {
                 position: "relative",
                 display: "flex",
@@ -28,6 +31,7 @@ const pageJSONConfig: IComponentConfig = {
                     id: "button_2refrf1",
                     name: "按钮1",
                     type: EnumComponentType.button,
+                    group: EnumComponentGroup.form,
                     css: {
                         flex: "1",
                         margin: "20px 20px 20px 0",
@@ -46,6 +50,7 @@ const pageJSONConfig: IComponentConfig = {
                     id: "button_2refrf2",
                     name: "按钮2",
                     type: EnumComponentType.button,
+                    group: EnumComponentGroup.form,
                     css: {
                         flex: "1",
                         margin: "20px 20px 20px 0",
@@ -59,6 +64,7 @@ const pageJSONConfig: IComponentConfig = {
                     id: "input_2refrf",
                     name: "文本框1",
                     type: EnumComponentType.input,
+                    group: EnumComponentGroup.form,
                     css: {
                         flex: "1",
                     },
@@ -73,6 +79,7 @@ const pageJSONConfig: IComponentConfig = {
             id: "layout_344r42",
             name: "红色容器",
             type: EnumComponentType.layout,
+            group: EnumComponentGroup.layout,
             css: {
                 position: "relative",
                 display: "block",
@@ -84,6 +91,7 @@ const pageJSONConfig: IComponentConfig = {
                     id: "rate_344r4sc2",
                     name: "评分组件",
                     type: EnumComponentType.rate,
+                    group: EnumComponentGroup.form,
                     props: {
                         defaultValue: 4,
                         value: 4,
@@ -95,6 +103,7 @@ const pageJSONConfig: IComponentConfig = {
             id: "layout_344r43",
             name: "蓝色容器",
             type: EnumComponentType.layout,
+            group: EnumComponentGroup.layout,
             css: {
                 position: "relative",
                 display: "flex",
@@ -107,6 +116,7 @@ const pageJSONConfig: IComponentConfig = {
                     id: "layout_344r4_3f",
                     name: "粉色容器1",
                     type: EnumComponentType.layout,
+                    group: EnumComponentGroup.layout,
                     css: {
                         position: "relative",
                         display: "block",
@@ -120,6 +130,7 @@ const pageJSONConfig: IComponentConfig = {
                     id: "layout_344r_s43",
                     name: "灰色容器",
                     type: EnumComponentType.layout,
+                    group: EnumComponentGroup.layout,
                     css: {
                         position: "relative",
                         display: "block",
@@ -134,6 +145,7 @@ const pageJSONConfig: IComponentConfig = {
             id: "layout_344r44",
             name: "屏幕固定容器",
             type: EnumComponentType.layout,
+            group: EnumComponentGroup.layout,
             css: {
                 position: "fixed",
                 display: "block",

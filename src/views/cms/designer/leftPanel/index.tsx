@@ -1,74 +1,36 @@
 import { Vue, Component } from "vue-property-decorator";
 import { VNode } from "vue";
 import { IMenus } from "@/interface/cmsDesigner/leftPanel";
+import { IPageModuleState } from "@/interface/cmsComponents/page";
 import { mapGetters } from "vuex";
 import Draggable from "vuedraggable";
 import classnames from "classnames";
 
 import "./index.less";
+import { commit_leftMenu_selectMenu } from "@/store/modules/leftMenu.module";
+import { IDesignerComponent } from "@/interface/cmsDesigner";
+import {
+    commit_designer_add_page,
+    commit_designer_setDragComponent,
+    commit_designer_setSelectPage,
+} from "@/store/modules/designer.module";
 
 @Component<DesignerLeftPanel>({
     name: "designer-left-panel",
     computed: {
-        ...mapGetters(["pages", "componentList"]),
-        _menus: function () {
-            const menus = this.menus;
-            // @ts-ignore vuex中的 页面列表
-            this.menus[0].children = this.pages.map((c) => {
-                this.$set(c, "title", c.name);
-                return c;
-            });
-            // @ts-ignore vuex中的 组件列表
-            this.menus[1].children = this.componentList.map((c) => {
-                this.$set(c, "title", c.name);
-                return c;
-            });
-            return menus;
-        },
-    },
-    mounted() {
-        // @ts-ignore
-        console.log("______________________", this.pages);
-        // @ts-ignore
-        console.log("____________", this._menus);
+        ...mapGetters("designer", ["componentList", "selectedPage", "pages"]),
+        ...mapGetters("leftMenu", ["menus", "selectedMenu"]),
     },
 })
 export default class DesignerLeftPanel extends Vue {
-    public menus: IMenus[] = [
-        {
-            key: "pageList",
-            title: "页面列表",
-            icon: "desktop",
-            selected: true,
-            children: [],
-        },
-        {
-            key: "componentList",
-            title: "组件列表",
-            icon: "appstore",
-            selected: false,
-            children: [],
-        },
-        {
-            key: "pageStructure",
-            title: "页面结构",
-            icon: "appstore",
-            selected: false,
-        },
-    ];
-    public secondMenuList: IMenus[] = [];
     renderMenus(): VNode[] {
-        // @ts-ignore
-        const menus: IMenus[] = this._menus;
-        // 选中的一级菜单
-        const selectFirstMenu: IMenus | undefined = menus.find(
-            (c: IMenus) => c.selected === true
-        );
-        let secondMenus: IMenus[] = [];
-        if (selectFirstMenu) {
-            // 拿到二级菜单
-            secondMenus = selectFirstMenu.children || [];
-        }
+        // @ts-ignore 左侧菜单列表
+        const menus: IMenus[] = this.menus || [];
+        // @ts-ignore 页面列表
+        const pageList: IPageModuleState[] = this.pages;
+        // @ts-ignore 组件列表
+        const compList: IDesignerComponent[] = this.componentList;
+
         const firstMenu = (
             <div class="first-menu">
                 <ul>
@@ -86,8 +48,6 @@ export default class DesignerLeftPanel extends Vue {
                 </ul>
             </div>
         );
-        const secondCanDrag =
-            selectFirstMenu && selectFirstMenu.key === this.menus[1].key;
         const dragOptions = {
             group: {
                 name: "componentDesigner",
@@ -95,27 +55,54 @@ export default class DesignerLeftPanel extends Vue {
             },
             sort: false,
         };
-        // @ts-ignore
-        const list = this.componentList;
         const secondMenu = (
             <div class="second-menu">
-                <ul>
+                <ul
+                    style={{
+                        display: menus[0].selected === true ? "block" : "none",
+                    }}
+                    class="pages"
+                >
+                    <h3>页面列表</h3>
+                    <button onClick={this.addPage}>添加页面</button>
+                    {pageList.map((c) => {
+                        return (
+                            <li
+                                class={classnames({
+                                    "li-page": true,
+                                    selected: c.selected,
+                                })}
+                                data-compType={c.type}
+                                key={c.id}
+                                onClick={() => this.selectPage(c.id)}
+                            >
+                                {c.name}
+                            </li>
+                        );
+                    })}
+                </ul>
+                <ul
+                    style={{
+                        display: menus[1].selected === true ? "block" : "none",
+                    }}
+                >
+                    <h3>组件列表</h3>
                     <Draggable
-                        v-model={list}
+                        value={compList}
                         handle=".li-component"
                         options={dragOptions}
                         onStart={this.dragStart}
-                        onAdd={this.dragAdd}
-                        onUpdate={this.dragUpdate}
+                        move={this.dragMove}
                         onEnd={this.dragEnd}
+                        class="components"
                     >
-                        {secondMenus.map((c) => {
+                        {compList.map((c) => {
                             return (
                                 <li
-                                    class={classnames({
-                                        "li-component": secondCanDrag,
-                                    })}
-                                    key={c.key}
+                                    class="li-component"
+                                    data-compType={c.type}
+                                    key={c.type}
+                                    data-compGroup={c.group}
                                 >
                                     {c.title}
                                 </li>
@@ -128,23 +115,28 @@ export default class DesignerLeftPanel extends Vue {
         return [firstMenu, secondMenu];
     }
     selectFirstMenu = (menu: IMenus): void => {
-        this.menus.forEach((c) => {
-            c.selected = false;
+        this.$store.commit(`leftMenu/${commit_leftMenu_selectMenu}`, { menu });
+    };
+    selectPage = (pageId: string): void => {
+        this.$store.commit(`designer/${commit_designer_setSelectPage}`, {
+            pageId,
         });
-        menu.selected = true;
     };
-    dragStart = (): void => {
+    addPage = (): void => {
+        this.$store.commit(`designer/commit_designer_add_page`);
+    };
+    dragStart(): void {
         console.log("designer-left-panel---> dragStart");
-    };
-    dragAdd = (): void => {
-        console.log("designer-left-panel---> dragAdd");
-    };
-    dragUpdate = (): void => {
-        console.log("designer-left-panel---> dragUpdate");
-    };
-    dragEnd = (): void => {
-        console.log("designer-left-panel---> dragEnd");
-    };
+    }
+    dragMove(e: any): void {
+        console.log("designer-left-panel---> dragMove", e);
+        this.$store.commit(`designer/${commit_designer_setDragComponent}`, {
+            component: e.draggedContext.element,
+        });
+    }
+    dragEnd(e: any): void {
+        console.log("designer-left-panel---> dragEnd", e);
+    }
     render(): VNode {
         return <div class="designer-left-panel">{this.renderMenus()}</div>;
     }

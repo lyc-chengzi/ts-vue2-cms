@@ -1,22 +1,14 @@
 import { EnumComponentType } from "@/enum";
-import { IDesignerComponent } from "../cmsDesigner";
+import { EnumComponentGroup } from "@/enum/cmsDesigner";
 import { IButtonProps } from "./button";
 import { IInputProps } from "./input";
-import { IPageModuleState } from "./page";
 import { IRateProps } from "./rate";
-
-export interface IAPPStateModule {
-    menus: any[];
-    pages: IPageModuleState[];
-    currentPage?: IPageModuleState;
-    itcode: string;
-    componentList: IDesignerComponent[];
-}
 
 export interface IComponentConfig {
     id: string;
     name: string;
     type: EnumComponentType;
+    group: EnumComponentGroup;
     children?: IComponentConfig[];
     apis?: string[];
     props?: IButtonProps | IInputProps | IRateProps;

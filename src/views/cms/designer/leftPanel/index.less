@@ -30,15 +30,33 @@
     .second-menu {
         flex: 1;
         li {
-            width: 80px;
-            height: 80px;
-            line-height: 80px;
+            height: 40px;
+            line-height: 40px;
             cursor: pointer;
         }
-    }
-    .second-menu {
-        li.li-component {
-            cursor: move;
+        ul.pages {
+            li {
+                display: block;
+                border: 1px solid #bb2236;
+            }
+            li.selected {
+                background-color: #ddcccc;
+            }
         }
+        .components {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: flex-start;
+            align-items: flex-start;
+            li.li-component {
+                height: 50px;
+                line-height: 50px;
+                box-sizing: border-box;
+                border: 1px solid #344433;
+                cursor: move;
+                width: 50%;
+            }
+        }
+        
     }
 }

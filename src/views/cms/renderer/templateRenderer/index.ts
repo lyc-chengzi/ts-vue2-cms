@@ -15,7 +15,7 @@ import { mapState } from "vuex";
         console.log("store", this.$store.state);
     },
     computed: {
-        ...mapState(["itcode", "currentPage"]),
+        ...mapState(["itcode", "selectedPage"]),
     },
 })
 class TemplateRenderer extends Vue {

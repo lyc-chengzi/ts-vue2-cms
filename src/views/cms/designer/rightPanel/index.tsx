@@ -6,11 +6,15 @@ import DesignerApiPanel from "./apiDesigner";
 import DesignerCssPanel from "./cssDesigner";
 import DesignerPropsPanel from "./propsDesigner";
 import DesignerDataPanel from "./dataDesigner";
+import { mapGetters } from "vuex";
 
 @Component({
     name: "designer-right-panel",
     components: {
         DesignerApiPanel,
+    },
+    computed: {
+        ...mapGetters("designer", ["selectedComponent"]),
     },
 })
 export default class DesignerRightPanel extends Vue {
