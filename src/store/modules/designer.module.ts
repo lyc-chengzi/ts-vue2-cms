@@ -41,6 +41,7 @@ type payload_designer_setSelectPage = {
     pageId: string;
 };
 
+// 组件拖入设计面板后，增加渲染组件
 export const commit_designer_dragAddComponent =
     "commit_designer_dragAddComponent";
 type payload_designer_dragAddComponent = {
@@ -48,9 +49,17 @@ type payload_designer_dragAddComponent = {
     component: IDesignerComponent;
 };
 
+// 设置拖动的组件
 export const commit_designer_setDragComponent =
     "commit_designer_setDragComponent";
 type payload_designer_setDragComponent = {
+    component: IDesignerComponent;
+};
+
+// 设置当前选中的组件
+export const commit_designer_selectedComponent =
+    "commit_designer_selectedComponent";
+type payload_designer_selectedComponent = {
     component: IDesignerComponent;
 };
 
@@ -133,7 +142,7 @@ const DesignerModule = <Module<IDesignerModuleState, any>>{
             if (payload.parent) {
                 state.selectedPageComponentList.push(newComponent);
                 state.selectedComponent = newComponent;
-                if (payload.parent.children) {
+                if (payload.parent.children instanceof Array) {
                     payload.parent.children.push(newComponent);
                 } else {
                     Vue.set(payload.parent, "children", [newComponent]);
@@ -147,6 +156,12 @@ const DesignerModule = <Module<IDesignerModuleState, any>>{
         ) => {
             state.dragComponent = payload.component;
         },
+        [commit_designer_selectedComponent]: (
+            state,
+            payload: payload_designer_selectedComponent
+        ) => {
+            state.selectedComponent = payload.component;
+        }
     },
 };
 

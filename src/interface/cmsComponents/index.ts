@@ -12,6 +12,7 @@ export interface IComponentConfig {
     children?: IComponentConfig[];
     apis?: string[];
     props?: IButtonProps | IInputProps | IRateProps;
+    defaultProps?: IButtonProps | IInputProps | IRateProps;
     css?: Record<string, string>;
     style?: string;
     events?: IComponentEvent;

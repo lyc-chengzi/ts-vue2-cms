@@ -3,20 +3,28 @@ import { VNode } from "vue";
 import Draggable from "vuedraggable";
 // import { IComponentConfig } from "@/interface/cmsComponents";
 import "./index.less";
-import { EnumComponentGroup } from "@/enum/cmsDesigner";
+import { EnumAppMode, EnumComponentGroup } from "@/enum/cmsDesigner";
 import { mapGetters } from "vuex";
 import { IDesignerComponent } from "@/interface/cmsDesigner";
-import LayoutDesigner from "../designerComponents/layoutDesigner.vue";
+
+import layoutRenderer from "@/views/cms/renderer/templateRenderer/layoutRenderer.vue";
+import DesignerBox from "../designerComponents/designerBox.vue";
+
 import { IPageModuleState } from "@/interface/cmsComponents/page";
 import { commit_designer_dragAddComponent } from "@/store/modules/designer.module";
+import { EnumComponentType } from "@/enum";
 @Component({
     name: "designer-main-panel",
     computed: {
         ...mapGetters("designer", [
             "selectedPage",
             "selectedPageComponentList",
+            "selectedComponent",
             "dragComponent",
         ]),
+    },
+    components: {
+        [EnumComponentType.layout]: layoutRenderer,
     },
 })
 export default class DesignerMainPanel extends Vue {
@@ -42,12 +50,7 @@ export default class DesignerMainPanel extends Vue {
             fromGroup === EnumComponentGroup.layout
         ) {
             this.$store.commit(`designer/${commit_designer_dragAddComponent}`, {
-                component: {
-                    id: "",
-                    name: "",
-                    group: fromGroup,
-                    type: fromType,
-                } as IDesignerComponent,
+                component: this.dragComponent,
                 parent: selectedPage,
             });
         }
@@ -68,21 +71,21 @@ export default class DesignerMainPanel extends Vue {
         };
         // @ts-ignore 当前页
         const selectedPage: IPageModuleState = this.selectedPage;
-        // @ts-ignore 当前页面组件列表
-        const selectedPageComponentList: IDesignerComponent[] =
-            this.selectedPageComponentList;
+        // @ts-ignore
+        const selectedComponent = (this.selectedComponent || {}) as any;
         return (
             <div class="designer-main-panel">
+                <h3>选中的组件id：{selectedComponent.id}</h3>
                 <Draggable
                     options={dragOptions}
                     handle={`.group-${EnumComponentGroup.layout}`}
-                    value={selectedPageComponentList}
+                    value={selectedPage.children}
                     class="main-panel-container"
                     onAdd={this.dragAdd}
                     onChange={this.dragChange}
                     data-designerid={selectedPage.id}
                 >
-                    {selectedPageComponentList.length === 0 ? (
+                    {(selectedPage.children || []).length === 0 ? (
                         <div class="main-panel-empty">
                             <h3>api设计器</h3>
                             <h5>请拖入容器组件</h5>
@@ -90,11 +93,28 @@ export default class DesignerMainPanel extends Vue {
                     ) : null}
                     {(selectedPage.children || []).map((c) => {
                         if (c.group === EnumComponentGroup.layout) {
+                            const layoutComponentName = c.type;
                             return (
-                                <LayoutDesigner
+                                // <DesignerBox
+                                //     data-id={c.id}
+                                //     state={c}
+                                //     parentId={selectedPage.id}
+                                // >
+                                //     <layoutComponentName
+                                //         state={c}
+                                //         key={c.id}
+                                //         parentId={selectedPage.id}
+                                //         mode={EnumAppMode.design}
+                                //     >                               
+                                //     </layoutComponentName>
+                                // </DesignerBox>
+                                <layoutComponentName
                                     state={c}
+                                    key={c.id}
                                     parentId={selectedPage.id}
-                                ></LayoutDesigner>
+                                    mode={EnumAppMode.design}
+                                >                               
+                                </layoutComponentName>
                             );
                         }
                     })}

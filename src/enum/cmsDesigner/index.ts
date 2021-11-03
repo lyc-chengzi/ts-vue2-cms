@@ -4,3 +4,9 @@ export enum EnumComponentGroup {
     base = "1",
     form = "2",
 }
+
+export enum EnumAppMode {
+    design = "1",
+    preview = "2",
+    view = "3",
+}

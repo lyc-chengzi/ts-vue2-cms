@@ -1,27 +1,18 @@
 <template>
-    <Draggable
-        class="layout-designer"
-        :group="{ name: 'componentDesigner' }"
-        :value="state.children"
-        :class="'layout-designer-container'"
-        @add="dragAdd"
-        :data-designerid="state.id"
-    >
-        <LayoutRenderer :parentId="parentId" :state="state"></LayoutRenderer>
-    </Draggable>
+    <div class="designer-box" @click.stop="selectComponent($event, state)">
+        <slot></slot>
+    </div>
 </template>
 <script lang="ts">
 import Vue, { PropType } from "vue";
-import Draggable from "vuedraggable";
-import LayoutRenderer from "@/views/cms/renderer/templateRenderer/layoutRenderer.vue";
 import { IComponentConfig } from "@/interface/cmsComponents";
-import { getUUID } from "@/utils";
 import { EnumComponentType } from "@/enum";
 import { EnumComponentGroup } from "@/enum/cmsDesigner";
-import { commit_designer_dragAddComponent } from "@/store/modules/designer.module";
+import { commit_designer_selectedComponent } from "@/store/modules/designer.module";
 import { mapGetters } from "vuex";
+import { getUUID } from "@/utils";
 export default Vue.extend({
-    name: "layout-disigner",
+    name: "designer-box",
     props: {
         state: {
             type: Object as PropType<IComponentConfig>,
@@ -43,21 +34,18 @@ export default Vue.extend({
             default: () => "",
         },
     },
-    components: {
-        LayoutRenderer,
-        Draggable,
-    },
     computed: {
         ...mapGetters("designer", ["dragComponent", "selectedComponent"]),
     },
     methods: {
-        dragAdd(e: any) {
-            const fromItem: HTMLLIElement = e.item;
-            const fromType = fromItem.dataset["comptype"];
-            this.$store.commit(`designer/${commit_designer_dragAddComponent}`, {
-                component: this.dragComponent,
-                parent: this.state,
-            });
+        selectComponent(e: any, state: IComponentConfig) {
+            console.log("designer-box -------------->", e, state);
+            this.$store.commit(
+                `designer/${commit_designer_selectedComponent}`,
+                {
+                    component: state,
+                }
+            );
         },
     },
 });

@@ -1,7 +1,7 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { IComponentConfig } from "@/interface/cmsComponents";
 import { PropType } from "vue";
-import { IButtonEvents } from "@/interface/cmsComponents/button";
+import { IButtonEvents, IButtonProps } from "@/interface/cmsComponents/button";
 import {
     IDesignerComponent,
     registerComponentFunc,
@@ -12,6 +12,17 @@ import { EnumComponentType } from "@/enum";
     name: "template-button-renderer",
     mounted: function (): void {
         console.log("button renderer: state -> ", this.state);
+    },
+    computed: {
+        combieProps() {
+            const defaultProps = getDefaultProps();
+            const props: IButtonProps = ((this.state && this.state.props) ||
+                {}) as IButtonProps;
+            return {
+                ...defaultProps,
+                ...props,
+            };
+        },
     },
 })
 export default class TemplateButtonRenderer extends Vue {
@@ -33,6 +44,12 @@ export default class TemplateButtonRenderer extends Vue {
     }
 }
 
+const getDefaultProps = () => {
+    return {
+        text: "按钮",
+    } as IButtonProps;
+};
+
 export const registerComponent: registerComponentFunc = function () {
     const button: IDesignerComponent = {
         id: "",
@@ -41,6 +58,7 @@ export const registerComponent: registerComponentFunc = function () {
         icon: "button",
         group: EnumComponentGroup.form,
         type: EnumComponentType.button,
+        defaultProps: getDefaultProps(),
     };
     return button;
 };

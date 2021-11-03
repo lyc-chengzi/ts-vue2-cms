@@ -14,6 +14,7 @@ import {
     commit_designer_setDragComponent,
     commit_designer_setSelectPage,
 } from "@/store/modules/designer.module";
+import { getUUID } from "@/utils";
 
 @Component<DesignerLeftPanel>({
     name: "designer-left-panel",
@@ -91,9 +92,7 @@ export default class DesignerLeftPanel extends Vue {
                         value={compList}
                         handle=".li-component"
                         options={dragOptions}
-                        onStart={this.dragStart}
                         move={this.dragMove}
-                        onEnd={this.dragEnd}
                         class="components"
                     >
                         {compList.map((c) => {
@@ -125,17 +124,14 @@ export default class DesignerLeftPanel extends Vue {
     addPage = (): void => {
         this.$store.commit(`designer/commit_designer_add_page`);
     };
-    dragStart(): void {
-        console.log("designer-left-panel---> dragStart");
-    }
     dragMove(e: any): void {
-        console.log("designer-left-panel---> dragMove", e);
+        const element = e.draggedContext.element;
+        element.id = element.type + '_' + getUUID();
+        element.name = element.type + '_' + (new Date().valueOf());
+        console.log("designer-left-panel---> dragMove", element);
         this.$store.commit(`designer/${commit_designer_setDragComponent}`, {
-            component: e.draggedContext.element,
+            component: element,
         });
-    }
-    dragEnd(e: any): void {
-        console.log("designer-left-panel---> dragEnd", e);
     }
     render(): VNode {
         return <div class="designer-left-panel">{this.renderMenus()}</div>;

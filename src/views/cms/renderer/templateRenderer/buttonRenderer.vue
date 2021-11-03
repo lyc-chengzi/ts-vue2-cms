@@ -1,11 +1,12 @@
 <template>
     <a-button
+        class="tdp-button-renderer"
         :id="state.id"
-        :type="state.props.type"
+        :type="combieProps.type"
         :style="state.css"
         @click="clickHandler"
     >
-        {{ state.props.text || "按钮" }}
+        {{ combieProps.text }}
     </a-button>
 </template>
 
