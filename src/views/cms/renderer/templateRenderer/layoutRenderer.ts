@@ -20,7 +20,7 @@ import { commit_designer_dragAddComponent } from "@/store/modules/designer.modul
     name: "layout-renderer",
     props: {
         mode: {
-            required: true,
+            required: false,
             type: String as PropType<EnumAppMode>,
             default: () => EnumAppMode.view,
         },

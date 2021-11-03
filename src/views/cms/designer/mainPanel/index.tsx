@@ -8,7 +8,7 @@ import { mapGetters } from "vuex";
 import { IDesignerComponent } from "@/interface/cmsDesigner";
 
 import layoutRenderer from "@/views/cms/renderer/templateRenderer/layoutRenderer.vue";
-import DesignerBox from "../designerComponents/designerBox.vue";
+// import DesignerBox from "../designerComponents/designerBox.vue";
 
 import { IPageModuleState } from "@/interface/cmsComponents/page";
 import { commit_designer_dragAddComponent } from "@/store/modules/designer.module";
@@ -41,7 +41,7 @@ export default class DesignerMainPanel extends Vue {
         const fromGroup: EnumComponentGroup = fromItem.dataset[
             "compgroup"
         ] as EnumComponentGroup;
-        const fromType = fromItem.dataset["comptype"];
+        // const fromType = fromItem.dataset["comptype"];
         // @ts-ignore
         const selectedPage: IPageModuleState = this.selectedPage;
         // 向根添加容器组件
@@ -105,7 +105,7 @@ export default class DesignerMainPanel extends Vue {
                                 //         key={c.id}
                                 //         parentId={selectedPage.id}
                                 //         mode={EnumAppMode.design}
-                                //     >                               
+                                //     >
                                 //     </layoutComponentName>
                                 // </DesignerBox>
                                 <layoutComponentName
@@ -113,7 +113,7 @@ export default class DesignerMainPanel extends Vue {
                                     key={c.id}
                                     parentId={selectedPage.id}
                                     mode={EnumAppMode.design}
-                                >                               
+                                >
                                 </layoutComponentName>
                             );
                         }

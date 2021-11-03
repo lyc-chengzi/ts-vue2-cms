@@ -161,7 +161,7 @@ const DesignerModule = <Module<IDesignerModuleState, any>>{
             payload: payload_designer_selectedComponent
         ) => {
             state.selectedComponent = payload.component;
-        }
+        },
     },
 };
 

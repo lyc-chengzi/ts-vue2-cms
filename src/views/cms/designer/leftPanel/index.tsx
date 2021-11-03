@@ -10,11 +10,9 @@ import "./index.less";
 import { commit_leftMenu_selectMenu } from "@/store/modules/leftMenu.module";
 import { IDesignerComponent } from "@/interface/cmsDesigner";
 import {
-    commit_designer_add_page,
     commit_designer_setDragComponent,
     commit_designer_setSelectPage,
 } from "@/store/modules/designer.module";
-import { getUUID } from "@/utils";
 
 @Component<DesignerLeftPanel>({
     name: "designer-left-panel",
@@ -126,8 +124,6 @@ export default class DesignerLeftPanel extends Vue {
     };
     dragMove(e: any): void {
         const element = e.draggedContext.element;
-        element.id = element.type + '_' + getUUID();
-        element.name = element.type + '_' + (new Date().valueOf());
         console.log("designer-left-panel---> dragMove", element);
         this.$store.commit(`designer/${commit_designer_setDragComponent}`, {
             component: element,

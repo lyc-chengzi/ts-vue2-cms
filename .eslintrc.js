@@ -19,6 +19,7 @@ module.exports = {
         indent: ["error", 4],
         "@typescript-eslint/ban-ts-comment": ["off"],
         "@typescript-eslint/no-explicit-any": ["off"],
+        "@typescript-eslint/explicit-module-boundary-types": ["off"],
         "prettier/prettier": [
             "warn",
             {
