@@ -21,7 +21,7 @@ import { mapGetters } from "vuex";
         this.initComponentList();
     },
     mounted(): void {
-        console.log(this.$route.meta);
+        // console.log(this.$route.meta);
     },
 })
 export default class Designer extends Vue {

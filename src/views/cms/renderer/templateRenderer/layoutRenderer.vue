@@ -1,20 +1,22 @@
 <template>
     <!--只渲染layout组件-->
     <a-layout
-        class="tdp-layout-renderer"
+        class="tdp-layout-renderer designer-comp"
         v-if="state.type === componentType"
         :id="state.id"
         :style="combiCss"
+        :data-id="state.id"
     >
         <template v-if="_isDesignMode">
             <Draggable
-                :options="{ group: { name: 'componentDesigner' } }"
+                :data-id="state.id"
+                :group="{ name: 'componentDesigner' }"
                 class="layout-renderer-designer"
-                :value="state.children"
+                v-model="state.children"
                 @add="dragAddHandler"
                 @change="dragChangeHandler"
             >
-                <!-- <designer-box
+                <designer-box
                     v-for="child in state.children"
                     :key="child.id"
                     :state="child"
@@ -24,17 +26,21 @@
                         :is="child.type"
                         :state="child"
                         :parentId="state.id"
-                        @click.stop="designerClickHandler($event)"
+                        :mode="mode"
+                        :id="child.id"
                     ></component>
-                </designer-box> -->
-                <component
+                </designer-box>
+                <!-- <component
+                    class="designer-comp"
                     v-for="child in state.children"
                     :key="child.id"
                     :is="child.type"
                     :state="child"
                     :parentId="state.id"
-                    @click.stop="designerClickHandler($event)"
-                ></component>
+                    :mode="mode"
+                    :id="child.id"
+                    :data-id="child.id"
+                ></component> -->
             </Draggable>
         </template>
         <template v-else>
@@ -42,6 +48,7 @@
                 v-for="child in state.children"
                 :key="child.id"
                 :is="child.type"
+                :id="child.id"
                 :state="child"
                 :parentId="state.id"
             ></component>
@@ -53,6 +60,7 @@
 .tdp-layout-renderer {
     position: relative;
     text-align: left;
+    background-color: transparent;
 }
 .layout-renderer-designer {
     min-height: 100px;

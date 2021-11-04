@@ -1,5 +1,9 @@
 <template>
-    <div class="designer-box" @click.stop="selectComponent($event, state)">
+    <div
+        class="designer-box"
+        @click.stop="selectComponent($event, state)"
+        :style="combieCss"
+    >
         <slot></slot>
     </div>
 </template>
@@ -36,10 +40,18 @@ export default Vue.extend({
     },
     computed: {
         ...mapGetters("designer", ["dragComponent", "selectedComponent"]),
+        combieCss() {
+            const defaultCss = {
+                display: "block",
+            };
+            const css = this.state.css || {};
+            return {
+                display: css.display || defaultCss.display,
+            };
+        },
     },
     methods: {
         selectComponent(e: any, state: IComponentConfig) {
-            console.log("designer-box -------------->", e, state);
             this.$store.commit(
                 `designer/${commit_designer_selectedComponent}`,
                 {
@@ -51,7 +63,7 @@ export default Vue.extend({
 });
 </script>
 <style lang="less">
-.layout-designer {
-    position: relative;
+.designer-box {
+    position: inherit;
 }
 </style>

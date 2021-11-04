@@ -44,12 +44,10 @@ import { commit_designer_dragAddComponent } from "@/store/modules/designer.modul
             return { ...defaultCss, ...css };
         },
     },
-    mounted() {
-        console.log("layout mounted, parentId:", this.parentId);
-    },
     methods: {
         dragAddHandler() {
             const targetComponent = this.state;
+            // console.log("layout-renderer dragAddHandler", targetComponent);
             if (
                 targetComponent &&
                 targetComponent.group === EnumComponentGroup.layout
@@ -64,6 +62,7 @@ import { commit_designer_dragAddComponent } from "@/store/modules/designer.modul
             }
         },
         dragChangeHandler(e: any) {
+            // console.log("layout-renderer dragChangeHandler", e);
             if (e && e.added) {
                 this.dragComponent = e.added.element;
             }
@@ -84,7 +83,7 @@ export default class TemplateLayoutRenderer extends Vue {
     public parentId?: string;
     @Prop({
         type: String as PropType<EnumAppMode>,
-        required: true,
+        required: false,
         default: () => EnumAppMode.view,
     })
     public mode?: EnumAppMode;

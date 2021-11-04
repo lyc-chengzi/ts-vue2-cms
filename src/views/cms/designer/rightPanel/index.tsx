@@ -20,7 +20,7 @@ import { mapGetters } from "vuex";
 export default class DesignerRightPanel extends Vue {
     @Prop() public element?: IComponentConfig;
     mounted(): void {
-        console.log(this.$store);
+        // console.log(this.$store);
     }
     render(): VNode {
         return (

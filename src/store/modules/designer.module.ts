@@ -7,7 +7,6 @@ import {
 } from "@/interface/cmsDesigner";
 import { getUUID } from "@/utils";
 import registerComponent from "@/views/cms/renderer/templateRenderer/componentRegister";
-import Vue from "vue";
 import { Module } from "vuex";
 
 // 生成一个默认的page配置
@@ -64,7 +63,7 @@ type payload_designer_selectedComponent = {
 };
 
 const componentList = registerComponent();
-console.log("componentList", componentList);
+// console.log("componentList", componentList);
 
 const DesignerModule = <Module<IDesignerModuleState, any>>{
     namespaced: true,
@@ -74,7 +73,6 @@ const DesignerModule = <Module<IDesignerModuleState, any>>{
         selectedPage: undefined,
         selectedPageComponentList: [],
         selectedComponent: undefined,
-        dragComponent: undefined,
         componentList: componentList,
     },
     getters: {
@@ -129,24 +127,10 @@ const DesignerModule = <Module<IDesignerModuleState, any>>{
             state,
             payload: payload_designer_dragAddComponent
         ) => {
-            const newId = `${payload.component.type}_${getUUID()}`;
-            const newComponent = {
-                ...payload.component,
-                ...{
-                    id: newId,
-                    name: newId,
-                    children: [],
-                },
-            };
-            console.log("newComponent", newComponent);
+            // console.log("dragIntoComponent", payload.component);
             if (payload.parent) {
-                state.selectedPageComponentList.push(newComponent);
-                state.selectedComponent = newComponent;
-                if (payload.parent.children instanceof Array) {
-                    payload.parent.children.push(newComponent);
-                } else {
-                    Vue.set(payload.parent, "children", [newComponent]);
-                }
+                state.selectedPageComponentList.push(payload.component);
+                state.selectedComponent = payload.component;
             }
         },
         // 设置选中的拖动组件

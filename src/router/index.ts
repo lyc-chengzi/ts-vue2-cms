@@ -24,7 +24,7 @@ const routes: Array<RouteConfig> = [
 ];
 
 const finalRoutes = routes.concat(threejsRoutes).concat(cmsRoutes);
-console.log("BASE_URL", process.env.BASE_URL);
+// console.log("BASE_URL", process.env.BASE_URL);
 const router = new VueRouter({
     mode: "history",
     base: process.env.BASE_URL,
@@ -32,8 +32,8 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    console.log("to", to);
-    console.log("from", from);
+    // console.log("to", to);
+    // console.log("from", from);
     const className = to.meta?.className || "";
     if (className) {
         const html = document.querySelector("html");

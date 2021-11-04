@@ -13,6 +13,7 @@ import {
     commit_designer_setDragComponent,
     commit_designer_setSelectPage,
 } from "@/store/modules/designer.module";
+import { getUUID } from "@/utils";
 
 @Component<DesignerLeftPanel>({
     name: "designer-left-panel",
@@ -47,13 +48,6 @@ export default class DesignerLeftPanel extends Vue {
                 </ul>
             </div>
         );
-        const dragOptions = {
-            group: {
-                name: "componentDesigner",
-                pull: "clone",
-            },
-            sort: false,
-        };
         const secondMenu = (
             <div class="second-menu">
                 <ul
@@ -89,8 +83,13 @@ export default class DesignerLeftPanel extends Vue {
                     <Draggable
                         value={compList}
                         handle=".li-component"
-                        options={dragOptions}
+                        group={{
+                            name: "componentDesigner",
+                            pull: "clone",
+                        }}
+                        sort={true}
                         move={this.dragMove}
+                        clone={this.dragCloneData}
                         class="components"
                     >
                         {compList.map((c) => {
@@ -111,20 +110,32 @@ export default class DesignerLeftPanel extends Vue {
         );
         return [firstMenu, secondMenu];
     }
-    selectFirstMenu = (menu: IMenus): void => {
+    // 向设计面板拖入组件时，生成新的id
+    dragCloneData(originData: IDesignerComponent) {
+        const newId = `${originData.type}_${getUUID()}`;
+        const newComponent = {
+            ...originData,
+            id: newId,
+            name: newId,
+            children: [],
+        };
+        // console.log("designer-left-panel---> dragCloneData", originData, newComponent);
+        return newComponent;
+    }
+    selectFirstMenu(menu: IMenus): void {
         this.$store.commit(`leftMenu/${commit_leftMenu_selectMenu}`, { menu });
-    };
-    selectPage = (pageId: string): void => {
+    }
+    selectPage(pageId: string): void {
         this.$store.commit(`designer/${commit_designer_setSelectPage}`, {
             pageId,
         });
-    };
-    addPage = (): void => {
+    }
+    addPage(): void {
         this.$store.commit(`designer/commit_designer_add_page`);
-    };
+    }
     dragMove(e: any): void {
         const element = e.draggedContext.element;
-        console.log("designer-left-panel---> dragMove", element);
+        // console.log("designer-left-panel---> dragMove", element);
         this.$store.commit(`designer/${commit_designer_setDragComponent}`, {
             component: element,
         });

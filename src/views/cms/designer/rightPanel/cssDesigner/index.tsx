@@ -2,14 +2,29 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 import { VNode } from "vue";
 import { IComponentConfig } from "@/interface/cmsComponents";
 import "./index.less";
+import { mapGetters } from "vuex";
+import { IDesignerComponent } from "@/interface/cmsDesigner";
 
-@Component({
+@Component<DesignerCssPanel>({
     name: "designer-css-panel",
+    computed: {
+        ...mapGetters("designer", ["selectedComponent"]),
+    },
 })
 export default class DesignerCssPanel extends Vue {
     @Prop() public element?: IComponentConfig;
-    mounted(): void {
-        // console.log(this.$store);
+    valueChange(proertyName: string, value: string): void {
+        if (value) {
+            // @ts-ignore
+            const selectedComponent: IDesignerComponent = this.selectedComponent;
+            if (selectedComponent) {
+                if (selectedComponent.css) {
+                    Vue.set(selectedComponent.css, proertyName, value);
+                } else {
+                    Vue.set(selectedComponent, "css", { [proertyName]: value });
+                }
+            }
+        }
     }
     render(): VNode {
         return (
@@ -22,6 +37,7 @@ export default class DesignerCssPanel extends Vue {
                             <a-select
                                 default-value="relative"
                                 style="width: 80%;"
+                                onChange={(value: string) => this.valueChange("position", value)}
                             >
                                 <a-select-option value="relative">
                                     相对定位
@@ -36,8 +52,36 @@ export default class DesignerCssPanel extends Vue {
                         </div>
                     </div>
                     <div class="item">
-                        <div class="label">外边距</div>
-                        <div class="value"></div>
+                        <div class="label">显示类型</div>
+                        <div class="value">
+                            <a-select
+                                default-value="block"
+                                style="width: 80%;"
+                                onChange={(value: string) => this.valueChange("display", value)}
+                            >
+                                <a-select-option value="flex">
+                                    flex
+                                </a-select-option>
+                                <a-select-option value="block">
+                                    块元素
+                                </a-select-option>
+                                <a-select-option value="inline-block">
+                                    行内块元素
+                                </a-select-option>
+                                <a-select-option value="inline">
+                                    行内元素
+                                </a-select-option>
+                            </a-select>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="label">背景色</div>
+                        <div class="value">
+                            <a-input
+                                style="width: 80%;"
+                                onChange={(e: any) => this.valueChange("backgroundColor", e.target.value)}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
