@@ -10,7 +10,7 @@ type commit_leftMenu_selectMenu_payload = {
 
 const LeftMenuModule = <Module<ILeftMenuModuleState, any>>{
     namespaced: true,
-    state: {
+    state: () => ({
         menus: [
             {
                 level: 1,
@@ -35,7 +35,7 @@ const LeftMenuModule = <Module<ILeftMenuModuleState, any>>{
             },
         ],
         selectedMenuId: "pageList",
-    },
+    }),
     getters: {
         // 一级菜单列表
         menus: (state) => {

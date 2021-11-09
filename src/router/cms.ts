@@ -31,7 +31,7 @@ const routes: Array<RouteConfig> = [
         name: "cms_designer",
         path: "/cms/designer",
         meta: {
-            className: "cms-designer",
+            className: "cms-designer-page",
             label: "模板渲染器",
             title: "通过json文件，生成对应的模板文件",
         },

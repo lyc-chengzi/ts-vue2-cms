@@ -7,15 +7,33 @@ import { IAppModuleState } from "@/interface/cmsDesigner";
 
 Vue.use(Vuex);
 
-export default new Vuex.Store<IAppModuleState>({
-    state: {
-        itcode: "liuyc14",
-    },
-    getters: {},
-    mutations: {},
-    actions: {},
-    modules: {
-        leftMenu: LeftMenuModule,
-        designer: designerModule,
-    },
-});
+const createStore = () => {
+    return new Vuex.Store<IAppModuleState>({
+        state: {
+            itcode: "liuyc14",
+            access: false,
+        },
+        getters: {},
+        mutations: {
+            setAccess: (state, payload) => {
+                state.access = payload.access;
+            },
+        },
+        actions: {
+            fetchAccess(context) {
+                new Promise((ok) => {
+                    setTimeout(() => {
+                        ok("success");
+                    }, 1000);
+                }).then(() => {
+                    context.commit("setAccess", { access: true });
+                });
+            },
+        },
+        modules: {
+            leftMenu: LeftMenuModule,
+            designer: designerModule,
+        },
+    });
+};
+export default createStore;

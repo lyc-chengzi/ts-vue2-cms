@@ -16,12 +16,12 @@ export default class DesignerCssPanel extends Vue {
     valueChange(proertyName: string, value: string): void {
         if (value) {
             // @ts-ignore
-            const selectedComponent: IDesignerComponent = this.selectedComponent;
-            if (selectedComponent) {
-                if (selectedComponent.css) {
-                    Vue.set(selectedComponent.css, proertyName, value);
+            const component: IDesignerComponent = this.selectedComponent;
+            if (component) {
+                if (component.css) {
+                    Vue.set(component.css, proertyName, value);
                 } else {
-                    Vue.set(selectedComponent, "css", { [proertyName]: value });
+                    Vue.set(component, "css", { [proertyName]: value });
                 }
             }
         }
@@ -37,7 +37,9 @@ export default class DesignerCssPanel extends Vue {
                             <a-select
                                 default-value="relative"
                                 style="width: 80%;"
-                                onChange={(value: string) => this.valueChange("position", value)}
+                                onChange={(value: string) =>
+                                    this.valueChange("position", value)
+                                }
                             >
                                 <a-select-option value="relative">
                                     相对定位
@@ -57,7 +59,9 @@ export default class DesignerCssPanel extends Vue {
                             <a-select
                                 default-value="block"
                                 style="width: 80%;"
-                                onChange={(value: string) => this.valueChange("display", value)}
+                                onChange={(value: string) =>
+                                    this.valueChange("display", value)
+                                }
                             >
                                 <a-select-option value="flex">
                                     flex
@@ -79,7 +83,12 @@ export default class DesignerCssPanel extends Vue {
                         <div class="value">
                             <a-input
                                 style="width: 80%;"
-                                onChange={(e: any) => this.valueChange("backgroundColor", e.target.value)}
+                                onChange={(e: any) =>
+                                    this.valueChange(
+                                        "backgroundColor",
+                                        e.target.value
+                                    )
+                                }
                             />
                         </div>
                     </div>

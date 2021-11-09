@@ -67,14 +67,14 @@ const componentList = registerComponent();
 
 const DesignerModule = <Module<IDesignerModuleState, any>>{
     namespaced: true,
-    state: {
+    state: () => ({
         menus: [],
         pages: [],
         selectedPage: undefined,
         selectedPageComponentList: [],
         selectedComponent: undefined,
         componentList: componentList,
-    },
+    }),
     getters: {
         pages: (state) => state.pages || [],
         componentList: (state) => state.componentList || [],

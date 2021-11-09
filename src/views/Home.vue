@@ -20,6 +20,11 @@ export default {
     // components: {
     //   HelloWorld,
     // },
+    asyncData(context: any) {
+        const { route, store } = context;
+        console.log("home.vue asyncData", route, store);
+        return store.dispatch("fetchAccess", route.params.id);
+    },
     mounted(): void {
         const hw = new HelloWorld({
             el: "#helloWorldId",
@@ -31,9 +36,9 @@ export default {
             },
         });
         setTimeout(() => {
-            console.log(hw);
+            // console.log(hw);
             hw.msg = "动态修改的msg";
-            console.log(hw.$props);
+            // console.log(hw.$props);
         }, 2000);
     },
 };

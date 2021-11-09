@@ -10,6 +10,7 @@ export type registerComponentFunc = () => IDesignerComponent;
 
 export interface IAppModuleState {
     itcode: string;
+    access: boolean;
 }
 
 export interface IDesignerModuleState {
